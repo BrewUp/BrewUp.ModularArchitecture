@@ -25,14 +25,6 @@ Are special tests that ensure that the architecture, defined at the beginning of
 In this solution we used two different libraries  
 > - NetArchtest is a fluent API for .Net Standard that can enforce architectural rules in unit tests. It's inspired by the ArchUnit library for java  
 
-# What is MicroservicesArchitecture
-
-
-# Why Bounded Context is not Enough?
-
-
-# What is QuantumArchitecture
-
 # Run Solution
 > - docker build -t brewup .  
 > - docker run --rm -p 8000:80 brewup
