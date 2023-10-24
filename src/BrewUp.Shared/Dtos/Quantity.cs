@@ -1,3 +1,3 @@
-﻿namespace BrewUp.Purchases.Facade.BindingModels;
+﻿namespace BrewUp.Shared.Dtos;
 
 public record Quantity(decimal Value, string UnitOfMeasure);

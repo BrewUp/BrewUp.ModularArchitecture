@@ -1,4 +1,4 @@
-using BrewUp.Purchases.Facade.BindingModels;
+using BrewUp.Shared.Dtos;
 
 namespace BrewUp.Sales.Facade.BindingModels;
 

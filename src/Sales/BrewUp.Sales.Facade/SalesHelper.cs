@@ -1,4 +1,6 @@
-﻿using BrewUp.Sales.Facade.Validators;
+﻿using BrewUp.Infrastructures.RabbitMq;
+using BrewUp.Sales.Facade.Validators;
+using BrewUp.Sales.Infrastructures.RabbitMq;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,14 @@ public static class SalesHelper
         
         services.AddScoped<ISalesFacade, SalesFacade>();
 
+        return services;
+    }
+    
+    public static IServiceCollection AddSalesInfrastructure(this IServiceCollection services,
+        RabbitMqSettings rabbitMqSettings)
+    {
+        services.AddRabbitMq(rabbitMqSettings);
+        
         return services;
     }
 }
