@@ -10,7 +10,12 @@ namespace BrewUp.Warehouses.ReadModel.Queries;
 public sealed class BeerQueries : IQueries<Beer>
 {
     private readonly IMongoDatabase _database;
-    
+
+    public BeerQueries(IMongoDatabase database)
+    {
+        _database = database;
+    }
+
     public async Task<Beer> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var collection = _database.GetCollection<Beer>(nameof(Beer));
