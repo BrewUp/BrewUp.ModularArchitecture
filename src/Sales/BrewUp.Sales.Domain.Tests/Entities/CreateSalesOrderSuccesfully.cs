@@ -12,15 +12,15 @@ using Muflone.SpecificationTests;
 
 namespace BrewUp.Sales.Domain.Tests.Entities;
 
-public sealed class CreateSalesOrderSuccesfully : CommandSpecification<CreateSalesOrder>
+public sealed class CreateSalesOrderSuccessfully : CommandSpecification<CreateSalesOrder>
 {
     private readonly SalesOrderId _salesOrderId = new(Guid.NewGuid());
     private readonly CustomerId _customerId = new(Guid.NewGuid());
-    private readonly OrderDate _orderDate = new OrderDate(DateTime.Today);
+    private readonly OrderDate _orderDate = new (DateTime.Today);
 
-    private readonly IEnumerable<SalesOrderLineDto> _lines;
+    private readonly IEnumerable<SalesOrderLineDto> _lines = Enumerable.Empty<SalesOrderLineDto>();
 
-    public CreateSalesOrderSuccesfully()
+    public CreateSalesOrderSuccessfully()
     {
         _lines = _lines.Concat(new List<SalesOrderLineDto>
         {

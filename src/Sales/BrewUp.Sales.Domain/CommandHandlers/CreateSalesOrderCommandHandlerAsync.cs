@@ -1,4 +1,5 @@
-﻿using BrewUp.Sales.Messages.Commands;
+﻿using BrewUp.Sales.Domain.Entities;
+using BrewUp.Sales.Messages.Commands;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 
@@ -12,8 +13,10 @@ public sealed class CreateSalesOrderCommandHandlerAsync : CommandHandlerBaseAsyn
         
     }
 
-    public override Task ProcessCommand(CreateSalesOrder command, CancellationToken cancellationToken = default)
+    public override async Task ProcessCommand(CreateSalesOrder command, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var aggregate =
+            SalesOrder.CreateSalesOrder(command.SalesOrderId, command.CustomerId, command.OrderDate, command.Lines);
+        await Repository.SaveAsync(aggregate, Guid.NewGuid());
     }
 }
