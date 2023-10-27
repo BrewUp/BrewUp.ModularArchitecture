@@ -13,7 +13,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 
 	public EventStorePositionRepository(ILogger<EventStorePositionRepository> logger, MongoDbSettings mongoDbSettings)
 	{
-		this._logger = logger;
+		_logger = logger;
 		var client = new MongoClient(mongoDbSettings.ConnectionString);
 		_database = client.GetDatabase(
 			mongoDbSettings.DatabaseName);
@@ -37,10 +37,10 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 
 			return new EventStorePosition(result.CommitPosition, result.PreparePosition);
 		}
-		catch (Exception e)
+		catch (Exception ex)
 		{
 			_logger.LogError(
-				$"EventStorePositionRepository: Error getting LastSavedPostion, Message: {e.Message}, StackTrace: {e.StackTrace}");
+				$"EventStorePositionRepository: Error getting LastSavedPostion, Message: {ex.Message}, StackTrace: {ex.StackTrace}");
 			throw;
 		}
 	}
@@ -72,10 +72,10 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 				}
 			}
 		}
-		catch (Exception e)
+		catch (Exception ex)
 		{
 			_logger.LogError(
-				$"EventStorePositionRepository: Error while updating commit position: {e.Message}, StackTrace: {e.StackTrace}");
+				$"EventStorePositionRepository: Error while updating commit position: {ex.Message}, StackTrace: {ex.StackTrace}");
 			throw;
 		}
 	}
