@@ -22,6 +22,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\MasterData\BrewUp.MasterData.Facade\BrewUp.MasterData.Facade.csproj" />
 	  <ProjectReference Include="..\Purchases\BrewUp.Purchases.Facade\BrewUp.Purchases.Facade.csproj" />
 	  <ProjectReference Include="..\Sales\BrewUp.Sales.Facade\BrewUp.Sales.Facade.csproj" />
 	  <ProjectReference Include="..\Warehouses\BrewUp.Warehouses.Facade\BrewUp.Warehouses.Facade.csproj" />

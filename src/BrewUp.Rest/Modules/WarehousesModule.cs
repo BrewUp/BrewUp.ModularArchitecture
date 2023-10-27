@@ -27,8 +27,13 @@ public sealed class WarehousesModule : IModule
         
         group.MapGet("/", WarehousesEndpoint.HandleGetWarehouses)
             .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status201Created)
+            .Produces(StatusCodes.Status200OK)
             .WithName("GetWarehouses");
+        
+        group.MapGet("/beers", WarehousesEndpoint.HandleGetBeers)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status201Created)
+            .WithName("GetBeers");
 
         return endpoints;
     }

@@ -30,4 +30,13 @@ public static class WarehousesEndpoint
 
         return Results.Ok(warehouses);
     }
+    
+    public static async Task<IResult> HandleGetBeers(
+        IWarehousesFacade warehousesFacade,
+        CancellationToken cancellationToken)
+    {
+        var beers = await warehousesFacade.GetBeersAsync(cancellationToken);
+
+        return Results.Ok(beers);
+    }
 }

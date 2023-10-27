@@ -8,8 +8,8 @@ public class SalesOrderValidator : AbstractValidator<SalesOrderJson>
     public SalesOrderValidator()
     {
         RuleFor(v => v.CustomerId).NotEqual(Guid.Empty);
-        RuleFor(v => v.Date).GreaterThan(DateTime.MinValue);
+        RuleFor(v => v.OrderDate).GreaterThan(DateTime.MinValue);
 
-        RuleForEach(v => v.Lines).SetValidator(new SalesOrderLineValidator());
+        RuleForEach(v => v.Rows).SetValidator(new SalesOrderLineValidator());
     }
 }

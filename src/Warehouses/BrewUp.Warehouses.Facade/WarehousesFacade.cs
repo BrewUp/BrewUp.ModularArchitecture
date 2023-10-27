@@ -2,16 +2,19 @@
 using BrewUp.Shared.Entities;
 using BrewUp.Warehouses.Facade.BindingModels;
 using BrewUp.Warehouses.ReadModel.Services;
+using Microsoft.Extensions.Logging;
 
 namespace BrewUp.Warehouses.Facade;
 
 public sealed class WarehousesFacade : IWarehousesFacade
 {
     private readonly IBeerService _beerService;
+    private readonly ILogger _logger;
 
-    public WarehousesFacade(IBeerService beerService)
+    public WarehousesFacade(IBeerService beerService, ILoggerFactory loggerFactory)
     {
-        _beerService = beerService;
+        _beerService = beerService ?? throw new ArgumentNullException(nameof(beerService));
+        _logger = loggerFactory.CreateLogger<WarehousesFacade>() ?? throw new ArgumentNullException(nameof(loggerFactory));
     }
 
     public Task<string> CreateWarehouseAsync(WarehouseJson body, CancellationToken cancellationToken)
@@ -19,7 +22,7 @@ public sealed class WarehousesFacade : IWarehousesFacade
         throw new NotImplementedException();
     }
 
-    public Task<PagedResult<WarehouseJson>> GetWarehousesAsync(CancellationToken cancellationToken)
+    public async Task<PagedResult<WarehouseJson>> GetWarehousesAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         
@@ -34,8 +37,16 @@ public sealed class WarehousesFacade : IWarehousesFacade
         }
     }
 
-    public Task<PagedResult<BeerJson>> GetBeersAsync(CancellationToken cancellationToken)
+    public async Task<PagedResult<BeerJson>> GetBeersAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await _beerService.GetBeersAsync(null, 0, 100, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting beers");
+            throw;
+        }
     }
 }
