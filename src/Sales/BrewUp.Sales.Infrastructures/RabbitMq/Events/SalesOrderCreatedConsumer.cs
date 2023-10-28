@@ -1,5 +1,6 @@
 ﻿using BrewUp.Sales.Messages.Events;
 using BrewUp.Sales.ReadModel.EventHandlers;
+using BrewUp.Sales.ReadModel.Services;
 using Microsoft.Extensions.Logging;
 using Muflone.Messages.Events;
 using Muflone.Transport.RabbitMQ.Abstracts;
@@ -11,11 +12,12 @@ public sealed class SalesOrderCreatedConsumer : DomainEventsConsumerBase<SalesOr
 {
     protected override IEnumerable<IDomainEventHandlerAsync<SalesOrderCreated>> HandlersAsync { get; }
 
-    public SalesOrderCreatedConsumer(IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory) : base(connectionFactory, loggerFactory)
+    public SalesOrderCreatedConsumer(ISalesOrderService salesOrderService,
+        IMufloneConnectionFactory connectionFactory, ILoggerFactory loggerFactory) : base(connectionFactory, loggerFactory)
     {
         HandlersAsync = new List<DomainEventHandlerAsync<SalesOrderCreated>>
         {
-            new SalesOrderCreatedEventHandlerAsync(loggerFactory)
+            new SalesOrderCreatedEventHandlerAsync(loggerFactory, salesOrderService)
         };
     }
 }

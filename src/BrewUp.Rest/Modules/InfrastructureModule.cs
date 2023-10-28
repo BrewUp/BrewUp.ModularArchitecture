@@ -8,12 +8,10 @@ namespace BrewUp.Rest.Modules;
 public sealed class InfrastructureModule : IModule
 {
     public bool IsEnabled => true;
-    public int Order => 0;
+    public int Order => 10;
     
     public IServiceCollection RegisterModule(WebApplicationBuilder builder)
     {
-        var mongoDbSettings = builder.Configuration.GetSection("BrewUp:MongoDb").Get<MongoDbSettings>()!;
-        
         builder.Services.AddInfrastructure(builder.Configuration.GetSection("BrewUp:MongoDb").Get<MongoDbSettings>()!,
             builder.Configuration.GetSection("BrewUp:EventStore").Get<EventStoreSettings>()!);
         

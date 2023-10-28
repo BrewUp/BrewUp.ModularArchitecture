@@ -15,11 +15,14 @@ public class SalesArchitectureTests
 
         var forbiddenAssemblies = new List<string>
         {
+            "BrewUp.Sagas",
+            "BrewUp.Purchases.Facade",
             "BrewUp.Purchases.Domain",
             "BrewUp.Purchases.Messages",
             "BrewUp.Purchases.ReadModel",
             "BrewUp.Purchases.SharedKernel",
             "BrewUp.Warehouses.Facade",
+            "BrewUp.Warehouses.Infrastructures",
             "BrewUp.Warehouses.ReadModel"
         };
 

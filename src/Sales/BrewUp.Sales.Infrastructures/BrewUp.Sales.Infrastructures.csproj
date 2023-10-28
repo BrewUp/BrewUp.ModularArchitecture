@@ -10,6 +10,7 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
         <PackageReference Include="Muflone.Eventstore" Version="6.1.1" />
         <PackageReference Include="Muflone.Saga.Persistence.MongoDb" Version="6.0.0" />
+        <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.2.3" />
         <PackageReference Include="Muflone.Transport.RabbitMQ.Saga" Version="6.2.0" />
     </ItemGroup>
 

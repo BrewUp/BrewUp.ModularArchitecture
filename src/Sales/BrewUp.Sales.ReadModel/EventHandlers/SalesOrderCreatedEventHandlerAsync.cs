@@ -1,16 +1,30 @@
 ﻿using BrewUp.Sales.Messages.Events;
+using BrewUp.Sales.ReadModel.Services;
+using BrewUp.Shared.Dtos;
 using Microsoft.Extensions.Logging;
 
 namespace BrewUp.Sales.ReadModel.EventHandlers;
 
 public sealed class SalesOrderCreatedEventHandlerAsync : DomainEventHandlerBase<SalesOrderCreated>
 {
-    public SalesOrderCreatedEventHandlerAsync(ILoggerFactory loggerFactory) : base(loggerFactory)
+    private readonly ISalesOrderService _salesOrderService;
+    public SalesOrderCreatedEventHandlerAsync(ILoggerFactory loggerFactory,
+        ISalesOrderService salesOrderService) : base(loggerFactory)
     {
+        _salesOrderService = salesOrderService;
     }
 
     public override async Task HandleAsync(SalesOrderCreated @event, CancellationToken cancellationToken = new ())
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _salesOrderService.CreateSalesOrderAsync(@event.SalesOrderId, @event.PubId,
+                @event.PubName, @event.OrderDate, @event.Lines, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error handling sales order created event");
+            throw;
+        }
     }
 }

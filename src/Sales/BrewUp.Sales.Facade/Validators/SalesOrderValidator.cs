@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace BrewUp.Sales.Facade.Validators;
 
-public class SalesOrderValidator : AbstractValidator<SalesOrderJson>
+public class SalesOrderValidator : AbstractValidator<SalesOrderModel>
 {
     public SalesOrderValidator()
     {
-        RuleFor(v => v.CustomerId).NotEqual(Guid.Empty);
+        RuleFor(v => v.PubId).NotEqual(Guid.Empty);
         RuleFor(v => v.OrderDate).GreaterThan(DateTime.MinValue);
 
         RuleForEach(v => v.Rows).SetValidator(new SalesOrderLineValidator());

@@ -8,9 +8,9 @@ public static class SalesEndpoints
 {
     public static async Task<IResult> HandleCreateOrder(
         ISalesFacade salesFacade,
-        IValidator<BindingModels.SalesOrderJson> validator,
+        IValidator<BindingModels.SalesOrderModel> validator,
         ValidationHandler validationHandler,
-        BindingModels.SalesOrderJson body,
+        BindingModels.SalesOrderModel body,
         CancellationToken cancellationToken)
     {
         await validationHandler.ValidateAsync(validator, body);

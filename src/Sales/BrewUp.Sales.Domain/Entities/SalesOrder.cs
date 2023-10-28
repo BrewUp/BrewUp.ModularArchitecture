@@ -19,12 +19,12 @@ public sealed class SalesOrder : AggregateRoot
     {
     }
 
-    internal static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, PubId pubId, OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines) 
-        => new(salesOrderId, pubId, orderDate, lines);
+    internal static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, PubId pubId, PubName pubName,
+        OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines) => new(salesOrderId, pubId, pubName, orderDate, lines);
     
-    private SalesOrder(SalesOrderId salesOrderId, PubId pubId, OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines)
+    private SalesOrder(SalesOrderId salesOrderId, PubId pubId, PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines)
     {
-        RaiseEvent(new SalesOrderCreated(salesOrderId, pubId, orderDate, lines ));
+        RaiseEvent(new SalesOrderCreated(salesOrderId, pubId, pubName, orderDate, lines ));
     }
 
     private void Apply(SalesOrderCreated @event)

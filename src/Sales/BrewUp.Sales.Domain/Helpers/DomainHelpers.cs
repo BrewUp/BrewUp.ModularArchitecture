@@ -8,6 +8,6 @@ public static class DomainHelpers
     internal static IEnumerable<SalesOrderLine> ToDomainEntities(this IEnumerable<SalesOrderLineDto> dtos)
     {
         return dtos.Select(dto =>
-            SalesOrderLine.CreateSalesOrderLine(dto.ProductId, dto.ProductName, dto.Quantity, dto.Price));
+            SalesOrderLine.CreateSalesOrderLine(dto.BeerId, dto.BeerName, dto.Quantity, dto.Price));
     }
 }

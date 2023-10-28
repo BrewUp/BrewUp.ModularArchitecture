@@ -6,8 +6,8 @@ namespace BrewUp.Sales.Domain.Entities;
 
 public class SalesOrderLine : Entity
 {
-    private readonly ProductId _productId;
-    private readonly ProductName _productName;
+    private readonly BeerId _beerId;
+    private readonly BeerName _beerName;
     private readonly Quantity _quantity;
     private readonly Price _price;
 
@@ -15,13 +15,13 @@ public class SalesOrderLine : Entity
     {
     }
 
-    internal static SalesOrderLine CreateSalesOrderLine(ProductId productId, ProductName productName, Quantity quantity,
-        Price price) => new (productId, productName, quantity, price);
+    internal static SalesOrderLine CreateSalesOrderLine(BeerId beerId, BeerName beerName, Quantity quantity,
+        Price price) => new (beerId, beerName, quantity, price);
 
-    private SalesOrderLine(ProductId productId, ProductName productName, Quantity quantity, Price price)
+    private SalesOrderLine(BeerId beerId, BeerName beerName, Quantity quantity, Price price)
     {
-        _productId = productId;
-        _productName = productName;
+        _beerId = beerId;
+        _beerName = beerName;
         _quantity = quantity;
         _price = price;
     }
