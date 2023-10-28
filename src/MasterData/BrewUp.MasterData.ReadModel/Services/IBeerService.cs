@@ -7,10 +7,10 @@ using BrewUp.Shared.Entities;
 
 namespace BrewUp.MasterData.ReadModel.Services;
 
-public interface IPubService
+public interface IBeerService
 {
-    Task<string> CreatePubAsync(PubId pubId, PubName pubName, CancellationToken cancellationToken);
-
-    Task<PagedResult<PubJson>> GetPubsAsync(Expression<Func<Pub, bool>>? query, int page, int pageSize,
+    Task<string> CreateBeerAsync(BeerId beerId, BeerName beerName, BeerType beerType, CancellationToken cancellationToken);
+    
+    Task<PagedResult<BeerJson>> GetBeersAsync(Expression<Func<Beer, bool>>? query, int page, int pageSize,
         CancellationToken cancellationToken);
 }

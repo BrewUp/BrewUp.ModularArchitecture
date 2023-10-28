@@ -20,6 +20,8 @@ public static class MasterDataHelper
         services.AddScoped<IMasterDataFacade, MasterDataFacade>();
         services.AddScoped<IPubService, PubService>();
         services.AddScoped<IQueries<Pub>, PubQueries>();
+        services.AddScoped<IBeerService, BeerService>();
+        services.AddScoped<IQueries<Beer>, BeerQueries>();
 
         return services;
     }

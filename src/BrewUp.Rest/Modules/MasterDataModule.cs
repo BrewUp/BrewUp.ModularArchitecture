@@ -30,6 +30,16 @@ public class MasterDataModule : IModule
             .Produces(StatusCodes.Status200OK)
             .WithName("GetPubs");
         
+        group.MapPost("/beers", MasterDataEndpoints.HandleCreateBeer)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status201Created)
+            .WithName("CreateBeer");
+        
+        group.MapGet("/beers", MasterDataEndpoints.HandleGetBeers)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status200OK)
+            .WithName("GetBeers");
+        
         return endpoints;
     }
 }

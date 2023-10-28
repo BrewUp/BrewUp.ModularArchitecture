@@ -16,7 +16,7 @@ public sealed class CreateSalesOrderCommandHandlerAsync : CommandHandlerBaseAsyn
     public override async Task ProcessCommand(CreateSalesOrder command, CancellationToken cancellationToken = default)
     {
         var aggregate =
-            SalesOrder.CreateSalesOrder(command.SalesOrderId, command.CustomerId, command.OrderDate, command.Lines);
+            SalesOrder.CreateSalesOrder(command.SalesOrderId, command.PubId, command.OrderDate, command.Lines);
         await Repository.SaveAsync(aggregate, Guid.NewGuid());
     }
 }

@@ -7,6 +7,7 @@ namespace BrewUp.MasterData.Facade.Endpoints;
 
 public static class MasterDataEndpoints
 {
+    #region Pubs
     public static async Task<IResult> HandleCreatePub(
         IMasterDataFacade masterDataFacade,
         IValidator<PubModel> validator,
@@ -29,6 +30,34 @@ public static class MasterDataEndpoints
     {
         var pubs = await masterDataFacade.GetPubsAsync(cancellationToken);
 
-        return Results.Ok(pubs);
+        return Results.Ok(pubs.Results);
     }
+    #endregion
+
+    #region Beers
+    public static async Task<IResult> HandleCreateBeer(
+        IMasterDataFacade masterDataFacade,
+        IValidator<BeerModel> validator,
+        ValidationHandler validationHandler,
+        BeerModel body,
+        CancellationToken cancellationToken)
+    {
+        await validationHandler.ValidateAsync(validator, body);
+        if (!validationHandler.IsValid)
+            return Results.BadRequest(validationHandler.Errors);
+
+        var beerId = await masterDataFacade.CreateBeerAsync(body, cancellationToken);
+
+        return Results.Created($"/v1/masterdata/beers/{beerId}", beerId);
+    }
+    
+    public static async Task<IResult> HandleGetBeers(
+        IMasterDataFacade masterDataFacade,
+        CancellationToken cancellationToken)
+    {
+        var beers = await masterDataFacade.GetBeersAsync(cancellationToken);
+
+        return Results.Ok(beers.Results);
+    }
+    #endregion
 }

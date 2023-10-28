@@ -1,4 +1,5 @@
 ﻿using BrewUp.Shared.BindingModels;
+using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using BrewUp.Shared.Entities;
 

@@ -9,16 +9,16 @@ namespace BrewUp.Sales.Messages.Commands;
 public sealed class CreateSalesOrder : Command
 {
     public readonly SalesOrderId SalesOrderId;
-    public readonly CustomerId CustomerId;
+    public readonly PubId PubId;
     public readonly OrderDate OrderDate;
 
     public readonly IEnumerable<SalesOrderLineDto> Lines;
 
-    public CreateSalesOrder(SalesOrderId aggregateId, CustomerId customerId, OrderDate orderDate,
+    public CreateSalesOrder(SalesOrderId aggregateId, PubId pubId, OrderDate orderDate,
         IEnumerable<SalesOrderLineDto> lines) : base(aggregateId)
     {
         SalesOrderId = aggregateId;
-        CustomerId = customerId;
+        PubId = pubId;
         OrderDate = orderDate;
 
         Lines = lines;
