@@ -1,7 +1,7 @@
 ﻿using BrewUp.Infrastructures.RabbitMq;
-using BrewUp.Sales.Infrastructures.RabbitMq.Commands;
-using BrewUp.Sales.Infrastructures.RabbitMq.Events;
-using BrewUp.Sales.ReadModel.Services;
+using BrewUp.Warehouses.Infrastructures.RabbitMq.Commands;
+using BrewUp.Warehouses.Infrastructures.RabbitMq.Events;
+using BrewUp.Warehouses.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
@@ -10,11 +10,11 @@ using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Factories;
 using Muflone.Transport.RabbitMQ.Models;
 
-namespace BrewUp.Sales.Infrastructures.RabbitMq;
+namespace BrewUp.Warehouses.Infrastructures.RabbitMq;
 
 public static class RabbitMqHelper
 {
-	public static IServiceCollection AddRabbitMqForSalesModule(this IServiceCollection services,
+	public static IServiceCollection AddRabbitMqForProductionModule(this IServiceCollection services,
 		RabbitMqSettings rabbitMqSettings)
 	{
 		var serviceProvider = services.BuildServiceProvider();
@@ -31,27 +31,10 @@ public static class RabbitMqHelper
 		var consumers = serviceProvider.GetRequiredService<IEnumerable<IConsumer>>();
 		consumers = consumers.Concat(new List<IConsumer>
 		{
-			new CreateSalesOrderConsumer(repository,
-				connectionFactory,
-				loggerFactory),
-			new SalesOrderCreatedConsumer(serviceProvider.GetRequiredService<ISalesOrderService>(), connectionFactory, loggerFactory),
+			new BeersForSaleCommittedConsumer(serviceProvider.GetRequiredService<IServiceBus>(), connectionFactory, loggerFactory),
 			
-			//
-			// new BeerCreatedConsumer(serviceProvider.GetRequiredService<IBeerService>(),
-			// 	connectionFactory,
-			// 	loggerFactory),
-			//
-			// new LoadBeerInStockConsumer(repository!, connectionFactory,
-			// 	loggerFactory),
-			//
-			// new BeerLoadedInStockConsumer(serviceProvider.GetRequiredService<IBeerService>(),
-			// 	connectionFactory,
-			// 	loggerFactory),
-			//
-			// new BeerCreatedSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
-			// 	serviceProvider.GetRequiredService<ISagaRepository>(),
-			// 	connectionFactory,
-			// 	loggerFactory)
+			new CreateProductionOrderConsumer(repository, connectionFactory, loggerFactory),
+			new ProductionOrderCreatedConsumer(serviceProvider.GetRequiredService<IProductionOrderService>(), connectionFactory, loggerFactory)
 		});
 		services.AddMufloneRabbitMQConsumers(consumers);
 

@@ -10,7 +10,11 @@ namespace BrewUp.Sales.Domain.Entities;
 
 public sealed class SalesOrder : AggregateRoot
 {
+    private SalesOrderNumber _salesOrderNumber;
+    
     private PubId _pubId;
+    private PubName _pubName;
+    
     private OrderDate _orderDate;
 
     private IEnumerable<SalesOrderLine> _lines;
@@ -32,8 +36,11 @@ public sealed class SalesOrder : AggregateRoot
     private void Apply(SalesOrderCreated @event)
     {
         Id = @event.SalesOrderId;
+        _salesOrderNumber = @event.SalesOrderNumber;
         
         _pubId = @event.PubId;
+        _pubName = @event.PubName;
+        
         _orderDate = @event.OrderDate;
         
         _lines = @event.Rows.ToDomainEntities();

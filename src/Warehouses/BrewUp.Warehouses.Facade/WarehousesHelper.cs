@@ -1,5 +1,7 @@
-﻿using BrewUp.Shared.ReadModel;
+﻿using BrewUp.Infrastructures.RabbitMq;
+using BrewUp.Shared.ReadModel;
 using BrewUp.Warehouses.Facade.Validators;
+using BrewUp.Warehouses.Infrastructures.RabbitMq;
 using BrewUp.Warehouses.ReadModel.Entities;
 using BrewUp.Warehouses.ReadModel.Queries;
 using BrewUp.Warehouses.ReadModel.Services;
@@ -18,9 +20,17 @@ public static class WarehousesHelper
         services.AddSingleton<ValidationHandler>();
         
         services.AddScoped<IWarehousesFacade, WarehousesFacade>();
-        services.AddScoped<IBeerService, BeerService>();
+        services.AddScoped<IProductionOrderService, ProductionOrderService>();
         services.AddScoped<IQueries<Beer>, BeerQueries>();
 
+        return services;
+    }
+    
+    public static IServiceCollection AddProductionInfrastructure(this IServiceCollection services,
+        RabbitMqSettings rabbitMqSettings)
+    {
+        services.AddRabbitMqForProductionModule(rabbitMqSettings);
+        
         return services;
     }
 }

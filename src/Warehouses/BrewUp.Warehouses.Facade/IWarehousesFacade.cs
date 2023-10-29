@@ -8,5 +8,4 @@ public interface IWarehousesFacade
     Task<string> CreateWarehouseAsync(WarehouseJson body, CancellationToken cancellationToken);
     
     Task<PagedResult<WarehouseJson>> GetWarehousesAsync(CancellationToken cancellationToken);
-    Task<PagedResult<BeerJson>> GetBeersAsync(CancellationToken cancellationToken);
 }

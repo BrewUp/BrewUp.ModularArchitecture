@@ -13,6 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\BrewUp.Infrastructures\BrewUp.Infrastructures.csproj" />
+      <ProjectReference Include="..\BrewUp.Warehouses.Infrastructures\BrewUp.Warehouses.Infrastructures.csproj" />
       <ProjectReference Include="..\BrewUp.Warehouses.ReadModel\BrewUp.Warehouses.ReadModel.csproj" />
     </ItemGroup>
 

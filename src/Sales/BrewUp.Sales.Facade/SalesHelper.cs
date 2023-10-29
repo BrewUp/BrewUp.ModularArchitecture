@@ -25,7 +25,7 @@ public static class SalesHelper
     public static IServiceCollection AddSalesInfrastructure(this IServiceCollection services,
         RabbitMqSettings rabbitMqSettings)
     {
-        services.AddRabbitMq(rabbitMqSettings);
+        services.AddRabbitMqForSalesModule(rabbitMqSettings);
         
         return services;
     }
