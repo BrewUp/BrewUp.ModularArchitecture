@@ -1,9 +1,9 @@
-﻿using BrewUp.Sales.Facade.BindingModels;
+﻿using BrewUp.Shared.Contracts;
 using FluentValidation;
 
 namespace BrewUp.Sales.Facade.Validators;
 
-public class SalesOrderLineValidator : AbstractValidator<SalesOrderLineModel>
+public class SalesOrderLineValidator : AbstractValidator<SalesOrderLineJson>
 {
     public SalesOrderLineValidator()
     {

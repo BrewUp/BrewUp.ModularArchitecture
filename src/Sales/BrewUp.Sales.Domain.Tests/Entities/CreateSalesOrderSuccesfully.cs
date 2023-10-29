@@ -15,8 +15,11 @@ namespace BrewUp.Sales.Domain.Tests.Entities;
 public sealed class CreateSalesOrderSuccessfully : CommandSpecification<CreateSalesOrder>
 {
     private readonly SalesOrderId _salesOrderId = new(Guid.NewGuid());
+    private readonly SalesOrderNumber _salesOrderNumber = new("2023-11-09");
+    
     private readonly PubId _pubId = new(Guid.NewGuid());
     private readonly PubName _pubName = new("Pub Name");
+    
     private readonly OrderDate _orderDate = new (DateTime.Today);
 
     private readonly IEnumerable<SalesOrderLineDto> _lines = Enumerable.Empty<SalesOrderLineDto>();
@@ -36,7 +39,7 @@ public sealed class CreateSalesOrderSuccessfully : CommandSpecification<CreateSa
 
     protected override CreateSalesOrder When()
     {
-        return new CreateSalesOrder(_salesOrderId, _pubId, _pubName, _orderDate, _lines);
+        return new CreateSalesOrder(_salesOrderId, _salesOrderNumber, _pubId, _pubName, _orderDate, _lines);
     }
 
     protected override ICommandHandlerAsync<CreateSalesOrder> OnHandler()
@@ -46,6 +49,6 @@ public sealed class CreateSalesOrderSuccessfully : CommandSpecification<CreateSa
 
     protected override IEnumerable<DomainEvent> Expect()
     {
-        yield return new SalesOrderCreated(_salesOrderId, _pubId, _pubName, _orderDate, _lines);
+        yield return new SalesOrderCreated(_salesOrderId, _salesOrderNumber, _pubId, _pubName, _orderDate, _lines);
     }
 }

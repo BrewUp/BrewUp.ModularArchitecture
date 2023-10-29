@@ -19,12 +19,14 @@ public sealed class SalesOrder : AggregateRoot
     {
     }
 
-    internal static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, PubId pubId, PubName pubName,
-        OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines) => new(salesOrderId, pubId, pubName, orderDate, lines);
-    
-    private SalesOrder(SalesOrderId salesOrderId, PubId pubId, PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines)
+    internal static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber,
+        PubId pubId, PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines) =>
+        new(salesOrderId, salesOrderNumber, pubId, pubName, orderDate, lines);
+
+    private SalesOrder(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId, PubName pubName,
+        OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines)
     {
-        RaiseEvent(new SalesOrderCreated(salesOrderId, pubId, pubName, orderDate, lines ));
+        RaiseEvent(new SalesOrderCreated(salesOrderId, salesOrderNumber, pubId, pubName, orderDate, lines ));
     }
 
     private void Apply(SalesOrderCreated @event)
@@ -34,6 +36,6 @@ public sealed class SalesOrder : AggregateRoot
         _pubId = @event.PubId;
         _orderDate = @event.OrderDate;
         
-        _lines = @event.Lines.ToDomainEntities();
+        _lines = @event.Rows.ToDomainEntities();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace BrewUp.Shared.BindingModels;
+﻿namespace BrewUp.Shared.Contracts;
 
 public class BeerJson
 {

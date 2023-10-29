@@ -1,4 +1,4 @@
-﻿namespace BrewUp.Warehouses.Facade.BindingModels;
+﻿namespace BrewUp.Shared.Contracts;
 
 public class WarehouseJson
 {

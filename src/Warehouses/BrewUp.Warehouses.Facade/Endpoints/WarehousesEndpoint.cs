@@ -1,4 +1,5 @@
-﻿using BrewUp.Warehouses.Facade.Validators;
+﻿using BrewUp.Shared.Contracts;
+using BrewUp.Warehouses.Facade.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
@@ -8,9 +9,9 @@ public static class WarehousesEndpoint
 {
     public static async Task<IResult> HandleCreateWarehouse(
         IWarehousesFacade warehousesFacade,
-        IValidator<BindingModels.WarehouseJson> validator,
+        IValidator<WarehouseJson> validator,
         ValidationHandler validationHandler,
-        BindingModels.WarehouseJson body,
+        WarehouseJson body,
         CancellationToken cancellationToken)
     {
         await validationHandler.ValidateAsync(validator, body);

@@ -9,6 +9,8 @@ namespace BrewUp.Sales.ReadModel.Entities;
 
 public class SalesOrder : EntityBase
 {
+    public string OrderNumber { get; private set; } = string.Empty;
+    
     public string PubId { get; private set; } = string.Empty;
     public string PubName { get; private set; } = string.Empty;
     
@@ -19,13 +21,14 @@ public class SalesOrder : EntityBase
     protected SalesOrder()
     {}
 
-    public static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, PubId pubId, PubName pubName,
-        OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows)
-        => new(salesOrderId.Value.ToString(), pubId.Value.ToString(), pubName.Value, orderDate.Value, rows.ToReadModelEntities());
+    public static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId,
+        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows) => new(salesOrderId.Value.ToString(),
+        salesOrderNumber.Value, pubId.Value.ToString(), pubName.Value, orderDate.Value, rows.ToReadModelEntities());
     
-    private SalesOrder(string salesOrderId, string pubId, string pubName, DateTime orderDate, IEnumerable<SalesOrderRow> rows)
+    private SalesOrder(string salesOrderId, string salesOrderNumber, string pubId, string pubName, DateTime orderDate, IEnumerable<SalesOrderRow> rows)
     {
         Id = salesOrderId;
+        OrderNumber = salesOrderNumber;
         PubId = pubId;
         PubName = pubName;
         OrderDate = orderDate;

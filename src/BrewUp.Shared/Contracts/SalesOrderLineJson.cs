@@ -1,6 +1,6 @@
 ﻿using BrewUp.Shared.Dtos;
 
-namespace BrewUp.Shared.BindingModels;
+namespace BrewUp.Shared.Contracts;
 
 public class SalesOrderLineJson
 {

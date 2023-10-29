@@ -1,4 +1,5 @@
 ﻿using BrewUp.Sales.Facade.Validators;
+using BrewUp.Shared.Contracts;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
@@ -8,9 +9,9 @@ public static class SalesEndpoints
 {
     public static async Task<IResult> HandleCreateOrder(
         ISalesFacade salesFacade,
-        IValidator<BindingModels.SalesOrderModel> validator,
+        IValidator<SalerOrderJson> validator,
         ValidationHandler validationHandler,
-        BindingModels.SalesOrderModel body,
+        SalerOrderJson body,
         CancellationToken cancellationToken)
     {
         await validationHandler.ValidateAsync(validator, body);

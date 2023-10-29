@@ -7,6 +7,6 @@ namespace BrewUp.Sales.ReadModel.Services;
 
 public interface ISalesOrderService
 {
-    Task CreateSalesOrderAsync(SalesOrderId salesOrderId, PubId pubId, PubName pubName,
-        OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows, CancellationToken cancellationToken);
+    Task CreateSalesOrderAsync(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId,
+        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows, CancellationToken cancellationToken);
 }

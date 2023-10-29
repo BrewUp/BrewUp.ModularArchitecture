@@ -14,12 +14,12 @@ public sealed class SalesOrderService : ServiceBase, ISalesOrderService
     {
     }
 
-    public async Task CreateSalesOrderAsync(SalesOrderId salesOrderId, PubId pubId, PubName pubName, OrderDate orderDate,
-        IEnumerable<SalesOrderLineDto> rows, CancellationToken cancellationToken)
+    public async Task CreateSalesOrderAsync(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId,
+        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows, CancellationToken cancellationToken)
     {
         try
         {
-            var salesOrder = SalesOrder.CreateSalesOrder(salesOrderId, pubId, pubName, orderDate, rows);
+            var salesOrder = SalesOrder.CreateSalesOrder(salesOrderId, salesOrderNumber, pubId, pubName, orderDate, rows);
             await Persister.InsertAsync(salesOrder, cancellationToken);
         }
         catch (Exception ex)

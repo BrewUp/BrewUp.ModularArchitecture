@@ -1,6 +1,5 @@
-﻿using BrewUp.Shared.BindingModels;
+﻿using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Entities;
-using BrewUp.Warehouses.Facade.BindingModels;
 using BrewUp.Warehouses.ReadModel.Services;
 using Microsoft.Extensions.Logging;
 

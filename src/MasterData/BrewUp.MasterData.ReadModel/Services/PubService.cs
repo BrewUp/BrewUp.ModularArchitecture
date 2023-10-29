@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using BrewUp.MasterData.ReadModel.Entities;
-using BrewUp.Shared.BindingModels;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using BrewUp.Shared.Entities;

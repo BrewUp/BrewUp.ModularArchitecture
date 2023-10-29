@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using BrewUp.Shared.BindingModels;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Entities;
 using BrewUp.Warehouses.ReadModel.Entities;
 

@@ -1,4 +1,4 @@
-﻿using BrewUp.Warehouses.Facade.BindingModels;
+﻿using BrewUp.Shared.Contracts;
 using FluentValidation;
 
 namespace BrewUp.Warehouses.Facade.Validators;

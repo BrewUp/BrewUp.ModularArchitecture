@@ -8,6 +8,7 @@ namespace BrewUp.Sales.ReadModel.EventHandlers;
 public sealed class SalesOrderCreatedEventHandlerAsync : DomainEventHandlerBase<SalesOrderCreated>
 {
     private readonly ISalesOrderService _salesOrderService;
+    
     public SalesOrderCreatedEventHandlerAsync(ILoggerFactory loggerFactory,
         ISalesOrderService salesOrderService) : base(loggerFactory)
     {
@@ -18,8 +19,8 @@ public sealed class SalesOrderCreatedEventHandlerAsync : DomainEventHandlerBase<
     {
         try
         {
-            await _salesOrderService.CreateSalesOrderAsync(@event.SalesOrderId, @event.PubId,
-                @event.PubName, @event.OrderDate, @event.Lines, cancellationToken);
+            await _salesOrderService.CreateSalesOrderAsync(@event.SalesOrderId, @event.SalesOrderNumber, @event.PubId,
+                @event.PubName, @event.OrderDate, @event.Rows, cancellationToken);
         }
         catch (Exception ex)
         {

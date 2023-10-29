@@ -9,20 +9,24 @@ namespace BrewUp.Sales.Messages.Events;
 public sealed class SalesOrderCreated : DomainEvent
 {
     public readonly SalesOrderId SalesOrderId;
+    public readonly SalesOrderNumber SalesOrderNumber;
     public readonly PubId PubId;
     public readonly PubName PubName;
     public readonly OrderDate OrderDate;
 
-    public readonly IEnumerable<SalesOrderLineDto> Lines;
+    public readonly IEnumerable<SalesOrderLineDto> Rows;
 
-    public SalesOrderCreated(SalesOrderId aggregateId, PubId pubId, PubName pubName, OrderDate orderDate,
-        IEnumerable<SalesOrderLineDto> lines) : base(aggregateId)
+    public SalesOrderCreated(SalesOrderId aggregateId, SalesOrderNumber salesOrderNumber, PubId pubId, PubName pubName,
+        OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows) : base(aggregateId)
     {
         SalesOrderId = aggregateId;
+        SalesOrderNumber = salesOrderNumber;
+        
         PubId = pubId;
         PubName = pubName;
+        
         OrderDate = orderDate;
 
-        Lines = lines;
+        Rows = rows;
     }
 }

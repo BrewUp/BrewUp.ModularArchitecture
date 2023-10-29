@@ -1,5 +1,5 @@
 ﻿using BrewUp.MasterData.Facade.BindingModels;
-using BrewUp.Shared.BindingModels;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Entities;
 
 namespace BrewUp.MasterData.Facade;
