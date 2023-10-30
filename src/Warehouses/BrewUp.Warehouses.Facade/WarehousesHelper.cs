@@ -4,6 +4,7 @@ using BrewUp.Warehouses.Facade.Validators;
 using BrewUp.Warehouses.Infrastructures.RabbitMq;
 using BrewUp.Warehouses.ReadModel.Entities;
 using BrewUp.Warehouses.ReadModel.Queries;
+using BrewUp.Warehouses.ReadModel.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,8 @@ public static class WarehousesHelper
         services.AddSingleton<ValidationHandler>();
         
         services.AddScoped<IWarehousesFacade, WarehousesFacade>();
-        services.AddScoped<IQueries<Beer>, BeerQueries>();
+        services.AddScoped<IBeerAvailabilityService, BeerAvailabilityService>();
+        services.AddScoped<IQueries<BeerAvailability>, BeerAvailabilityQueries>();
 
         return services;
     }

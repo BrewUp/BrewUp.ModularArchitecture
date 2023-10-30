@@ -7,31 +7,31 @@ using MongoDB.Driver.Linq;
 
 namespace BrewUp.Warehouses.ReadModel.Queries;
 
-public sealed class BeerQueries : IQueries<Beer>
+public sealed class BeerAvailabilityQueries : IQueries<BeerAvailability>
 {
     private readonly IMongoDatabase _database;
 
-    public BeerQueries(IMongoDatabase database)
+    public BeerAvailabilityQueries(IMongoDatabase database)
     {
         _database = database;
     }
 
-    public async Task<Beer> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<BeerAvailability> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
-        var collection = _database.GetCollection<Beer>(nameof(Beer));
-        var filter = Builders<Beer>.Filter.Eq("_id", id);
+        var collection = _database.GetCollection<BeerAvailability>(nameof(BeerAvailability));
+        var filter = Builders<BeerAvailability>.Filter.Eq("_id", id);
         return (await collection.CountDocumentsAsync(filter, cancellationToken: cancellationToken) > 0
             ? (await collection.FindAsync(filter, cancellationToken: cancellationToken)).First()
             : null)!;
     }
 
-    public async Task<PagedResult<Beer>> GetByFilterAsync(Expression<Func<Beer, bool>>? query, int page, int pageSize,
+    public async Task<PagedResult<BeerAvailability>> GetByFilterAsync(Expression<Func<BeerAvailability, bool>>? query, int page, int pageSize,
         CancellationToken cancellationToken)
     {
         if (--page < 0)
             page = 0;
 
-        var collection = _database.GetCollection<Beer>(nameof(Beer));
+        var collection = _database.GetCollection<BeerAvailability>(nameof(BeerAvailability));
         var queryable = query != null
             ? collection.AsQueryable().Where(query)
             : collection.AsQueryable();
@@ -39,6 +39,6 @@ public sealed class BeerQueries : IQueries<Beer>
         var count = await queryable.CountAsync(cancellationToken: cancellationToken);
         var results = await queryable.Skip(page * pageSize).Take(pageSize).ToListAsync(cancellationToken: cancellationToken);
 
-        return new PagedResult<Beer>(results, page, pageSize, count);
+        return new PagedResult<BeerAvailability>(results, page, pageSize, count);
     }
 }
