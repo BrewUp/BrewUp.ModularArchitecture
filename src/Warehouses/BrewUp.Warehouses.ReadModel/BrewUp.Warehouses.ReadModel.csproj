@@ -18,7 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Adapters\" />
       <Folder Include="EventHandlers\" />
     </ItemGroup>
 

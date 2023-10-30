@@ -28,8 +28,4 @@
       <ProjectReference Include="..\BrewUp.Warehouses.Messages\BrewUp.Warehouses.Messages.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Entities\" />
-    </ItemGroup>
-
 </Project>
