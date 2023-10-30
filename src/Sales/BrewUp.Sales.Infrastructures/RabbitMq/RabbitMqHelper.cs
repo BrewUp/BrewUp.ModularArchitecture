@@ -4,6 +4,7 @@ using BrewUp.Sales.Infrastructures.RabbitMq.Events;
 using BrewUp.Sales.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Muflone;
 using Muflone.Persistence;
 using Muflone.Transport.RabbitMQ;
 using Muflone.Transport.RabbitMQ.Abstracts;
@@ -34,24 +35,9 @@ public static class RabbitMqHelper
 			new CreateSalesOrderConsumer(repository,
 				connectionFactory,
 				loggerFactory),
-			new SalesOrderCreatedConsumer(serviceProvider.GetRequiredService<ISalesOrderService>(), connectionFactory, loggerFactory),
-			
-			//
-			// new BeerCreatedConsumer(serviceProvider.GetRequiredService<IBeerService>(),
-			// 	connectionFactory,
-			// 	loggerFactory),
-			//
-			// new LoadBeerInStockConsumer(repository!, connectionFactory,
-			// 	loggerFactory),
-			//
-			// new BeerLoadedInStockConsumer(serviceProvider.GetRequiredService<IBeerService>(),
-			// 	connectionFactory,
-			// 	loggerFactory),
-			//
-			// new BeerCreatedSagaConsumer(serviceProvider.GetRequiredService<IServiceBus>(),
-			// 	serviceProvider.GetRequiredService<ISagaRepository>(),
-			// 	connectionFactory,
-			// 	loggerFactory)
+			new SalesOrderCreatedConsumer(serviceProvider.GetRequiredService<ISalesOrderService>(),
+				serviceProvider.GetRequiredService<IEventBus>(),
+				connectionFactory, loggerFactory),
 		});
 		services.AddMufloneRabbitMQConsumers(consumers);
 
