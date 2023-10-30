@@ -5,7 +5,7 @@ namespace BrewUp.Sales.Domain.Helpers;
 
 public static class DomainHelpers
 {
-    internal static IEnumerable<SalesOrderLine> ToDomainEntities(this IEnumerable<SalesOrderLineDto> dtos)
+    internal static IEnumerable<SalesOrderLine> ToDomainEntities(this IEnumerable<SalesOrderRowDto> dtos)
     {
         return dtos.Select(dto =>
             SalesOrderLine.CreateSalesOrderLine(dto.BeerId, dto.BeerName, dto.Quantity, dto.Price));

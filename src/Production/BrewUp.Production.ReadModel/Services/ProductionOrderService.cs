@@ -1,7 +1,9 @@
 ﻿using BrewUp.Production.ReadModel.Entities;
 using BrewUp.Production.SharedKernel.DomainIds;
 using BrewUp.Production.SharedKernel.Dtos;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Dtos;
+using BrewUp.Shared.Entities;
 using BrewUp.Shared.ReadModel;
 using Microsoft.Extensions.Logging;
 
@@ -9,8 +11,10 @@ namespace BrewUp.Production.ReadModel.Services;
 
 public sealed class ProductionOrderService : ServiceBase, IProductionOrderService
 {
-    public ProductionOrderService(ILoggerFactory loggerFactory, IPersister persister) : base(loggerFactory, persister)
+    private readonly IQueries<ProductionOrder> _queries;
+    public ProductionOrderService(ILoggerFactory loggerFactory, IPersister persister, IQueries<ProductionOrder> queries) : base(loggerFactory, persister)
     {
+        _queries = queries;
     }
 
     public async Task CreateProductionOrderAsync(ProductionOrderId productionOrderId, ProductionOrderNumber productionOrderNumber,
@@ -24,6 +28,23 @@ public sealed class ProductionOrderService : ServiceBase, IProductionOrderServic
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error creating production order");
+            throw;
+        }
+    }
+
+    public async Task<PagedResult<ProductionOrderJson>> GetProductionOrdersAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        try
+        {
+            var ordersResult = await _queries.GetByFilterAsync(null, 0, 100, cancellationToken);
+            
+            return ordersResult.TotalRecords > 0
+                ? new PagedResult<ProductionOrderJson>(ordersResult.Results.Select(r => r.ToJson()), ordersResult.Page, ordersResult.PageSize, ordersResult.TotalRecords)
+                : new PagedResult<ProductionOrderJson>(Enumerable.Empty<ProductionOrderJson>(), 0, 0, 0);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error reading ProductionOrders");
             throw;
         }
     }

@@ -16,10 +16,10 @@ public sealed class CreateSalesOrder : Command
     
     public readonly OrderDate OrderDate;
 
-    public readonly IEnumerable<SalesOrderLineDto> Lines;
+    public readonly IEnumerable<SalesOrderRowDto> Lines;
 
     public CreateSalesOrder(SalesOrderId aggregateId, SalesOrderNumber salesOrderNumber, PubId pubId, PubName pubName,
-        OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines) : base(aggregateId)
+        OrderDate orderDate, IEnumerable<SalesOrderRowDto> lines) : base(aggregateId)
     {
         SalesOrderId = aggregateId;
         SalesOrderNumber = salesOrderNumber;

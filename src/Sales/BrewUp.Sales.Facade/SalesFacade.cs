@@ -29,7 +29,7 @@ public sealed class SalesFacade : ISalesFacade
         CreateSalesOrder createSalesOrder = new(new SalesOrderId(body.SalesOrderId),
             new SalesOrderNumber(body.SalesOrderNumber),
             new PubId(body.PubId), new PubName(body.PubName), new OrderDate(body.OrderDate), 
-            body.Rows.Select(x => new SalesOrderLineDto(
+            body.Rows.Select(x => new SalesOrderRowDto(
                 new BeerId(x.BeerId), new BeerName(x.BeerName), x.Quantity, x.Price)));
 
         await _serviceBus.SendAsync(createSalesOrder, cancellationToken);

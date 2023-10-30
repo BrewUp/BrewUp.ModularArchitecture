@@ -1,6 +1,4 @@
 ﻿namespace BrewUp.Shared.Contracts;
 
-public class ProductionOrderJson
-{
-    
-}
+public record ProductionOrderJson(Guid ProductionOrderId, string ProductionOrderNumber, DateTime OrderData,
+    IEnumerable<ProductionOrderRowJson> Rows);

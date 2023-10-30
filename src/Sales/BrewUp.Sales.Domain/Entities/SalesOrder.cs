@@ -24,11 +24,11 @@ public sealed class SalesOrder : AggregateRoot
     }
 
     internal static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber,
-        PubId pubId, PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines) =>
+        PubId pubId, PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderRowDto> lines) =>
         new(salesOrderId, salesOrderNumber, pubId, pubName, orderDate, lines);
 
     private SalesOrder(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId, PubName pubName,
-        OrderDate orderDate, IEnumerable<SalesOrderLineDto> lines)
+        OrderDate orderDate, IEnumerable<SalesOrderRowDto> lines)
     {
         RaiseEvent(new SalesOrderCreated(salesOrderId, salesOrderNumber, pubId, pubName, orderDate, lines ));
     }

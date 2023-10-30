@@ -19,7 +19,7 @@ public sealed class SalesOrderService : ServiceBase, ISalesOrderService
     }
 
     public async Task CreateSalesOrderAsync(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId,
-        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows, CancellationToken cancellationToken)
+        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderRowDto> rows, CancellationToken cancellationToken)
     {
         try
         {

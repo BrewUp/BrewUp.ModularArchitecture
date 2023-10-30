@@ -1,12 +1,20 @@
-﻿using BrewUp.Shared.Contracts;
+﻿using BrewUp.Production.ReadModel.Services;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Entities;
 
 namespace BrewUp.Production.Facade;
 
 public sealed class ProductionFacade : IProductionFacade
 {
-    public Task<PagedResult<ProductionOrderJson>> GetProductionOrdersAsync(CancellationToken cancellationToken)
+    private readonly IProductionOrderService _productionOrderService;
+
+    public ProductionFacade(IProductionOrderService productionOrderService)
     {
-        throw new NotImplementedException();
+        _productionOrderService = productionOrderService;
+    }
+
+    public async Task<PagedResult<ProductionOrderJson>> GetProductionOrdersAsync(CancellationToken cancellationToken)
+    {
+        return await _productionOrderService.GetProductionOrdersAsync(cancellationToken);
     }
 }

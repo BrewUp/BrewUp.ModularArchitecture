@@ -14,10 +14,10 @@ public sealed class SalesOrderCreated : DomainEvent
     public readonly PubName PubName;
     public readonly OrderDate OrderDate;
 
-    public readonly IEnumerable<SalesOrderLineDto> Rows;
+    public readonly IEnumerable<SalesOrderRowDto> Rows;
 
     public SalesOrderCreated(SalesOrderId aggregateId, SalesOrderNumber salesOrderNumber, PubId pubId, PubName pubName,
-        OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows) : base(aggregateId)
+        OrderDate orderDate, IEnumerable<SalesOrderRowDto> rows) : base(aggregateId)
     {
         SalesOrderId = aggregateId;
         SalesOrderNumber = salesOrderNumber;

@@ -23,7 +23,7 @@ public class SalesOrder : EntityBase
     {}
 
     public static SalesOrder CreateSalesOrder(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId,
-        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderLineDto> rows) => new(salesOrderId.Value.ToString(),
+        PubName pubName, OrderDate orderDate, IEnumerable<SalesOrderRowDto> rows) => new(salesOrderId.Value.ToString(),
         salesOrderNumber.Value, pubId.Value.ToString(), pubName.Value, orderDate.Value, rows.ToReadModelEntities());
     
     private SalesOrder(string salesOrderId, string salesOrderNumber, string pubId, string pubName, DateTime orderDate, IEnumerable<SalesOrderRow> rows)

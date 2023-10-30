@@ -22,11 +22,11 @@ public sealed class CreateSalesOrderSuccessfully : CommandSpecification<CreateSa
     
     private readonly OrderDate _orderDate = new (DateTime.Today);
 
-    private readonly IEnumerable<SalesOrderLineDto> _lines = Enumerable.Empty<SalesOrderLineDto>();
+    private readonly IEnumerable<SalesOrderRowDto> _lines = Enumerable.Empty<SalesOrderRowDto>();
 
     public CreateSalesOrderSuccessfully()
     {
-        _lines = _lines.Concat(new List<SalesOrderLineDto>
+        _lines = _lines.Concat(new List<SalesOrderRowDto>
         {
             new(new BeerId(Guid.NewGuid()), new BeerName("Muflone IPA"), new Quantity(20, "lt"), new Price(2.5m, "€"))
         });

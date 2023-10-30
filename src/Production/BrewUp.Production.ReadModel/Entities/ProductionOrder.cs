@@ -1,5 +1,6 @@
 ﻿using BrewUp.Production.SharedKernel.DomainIds;
 using BrewUp.Production.SharedKernel.Dtos;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Dtos;
 using BrewUp.Shared.Entities;
 
@@ -27,4 +28,12 @@ public class ProductionOrder : EntityBase
         OrderDate = orderData;
         Rows = rows;
     }
+
+    public ProductionOrderJson ToJson() => new(new Guid(Id), ProductionOrderNumber, OrderDate, Rows.Select(r =>
+        new ProductionOrderRowJson
+        {
+            BeerId = r.BeerId.Value,
+            BeerName = r.BeerName.Value,
+            Quantity = r.Quantity
+        }));
 }

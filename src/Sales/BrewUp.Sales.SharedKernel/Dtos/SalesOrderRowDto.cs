@@ -3,4 +3,4 @@ using BrewUp.Shared.Dtos;
 
 namespace BrewUp.Sales.SharedKernel.Dtos;
 
-public record SalesOrderLineDto(BeerId BeerId, BeerName BeerName, Quantity Quantity, Price Price);
+public record SalesOrderRowDto(BeerId BeerId, BeerName BeerName, Quantity Quantity, Price Price);
