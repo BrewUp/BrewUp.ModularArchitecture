@@ -1,6 +1,7 @@
 ﻿using BrewUp.Sales.ReadModel.Helpers;
 using BrewUp.Sales.SharedKernel.DomainIds;
 using BrewUp.Sales.SharedKernel.Dtos;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using BrewUp.Shared.Entities;
@@ -34,4 +35,6 @@ public class SalesOrder : EntityBase
         OrderDate = orderDate;
         Rows = rows;
     }
+    
+    public SalesOrderJson ToJson() => new(Guid.Parse(Id), OrderNumber, Guid.Parse(PubId), PubName, OrderDate, Rows.Select(r => r.ToJson));
 }

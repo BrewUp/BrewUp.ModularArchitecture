@@ -27,7 +27,7 @@ public sealed class SalesModule : IModule
         
         group.MapGet("/", SalesEndpoints.HandleGetOrders)
             .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status201Created)
+            .Produces(StatusCodes.Status200OK)
             .WithName("GetSalesOrders");
         
         return endpoints;

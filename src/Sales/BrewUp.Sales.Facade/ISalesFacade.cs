@@ -1,9 +1,10 @@
 ﻿using BrewUp.Shared.Contracts;
+using BrewUp.Shared.Entities;
 
 namespace BrewUp.Sales.Facade;
 
 public interface ISalesFacade
 {
-    Task<string> CreateOrderAsync(SalerOrderJson body, CancellationToken cancellationToken);
-    Task<IEnumerable<SalerOrderJson>> GetOrdersAsync(CancellationToken cancellationToken);
+    Task<string> CreateOrderAsync(SalesOrderJson body, CancellationToken cancellationToken);
+    Task<PagedResult<SalesOrderJson>> GetOrdersAsync(CancellationToken cancellationToken);
 }

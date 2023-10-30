@@ -17,4 +17,9 @@
         <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.2.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Adapters\" />
+      <Folder Include="EventHandlers\" />
+    </ItemGroup>
+
 </Project>

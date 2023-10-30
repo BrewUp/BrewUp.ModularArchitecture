@@ -1,6 +1,7 @@
 ﻿using BrewUp.Infrastructures;
 using BrewUp.Infrastructures.MongoDb;
 using BrewUp.Infrastructures.RabbitMq;
+using BrewUp.Production.Facade;
 using BrewUp.Sales.Facade;
 using BrewUp.Warehouses.Facade;
 
@@ -17,6 +18,8 @@ public sealed class InfrastructureModule : IModule
             builder.Configuration.GetSection("BrewUp:EventStore").Get<EventStoreSettings>()!);
         
         builder.Services.AddSalesInfrastructure(builder.Configuration.GetSection("BrewUp:RabbitMQ")
+            .Get<RabbitMqSettings>()!);
+        builder.Services.AddWarehousesInfrastructure(builder.Configuration.GetSection("BrewUp:RabbitMQ")
             .Get<RabbitMqSettings>()!);
         builder.Services.AddProductionInfrastructure(builder.Configuration.GetSection("BrewUp:RabbitMQ")
             .Get<RabbitMqSettings>()!);

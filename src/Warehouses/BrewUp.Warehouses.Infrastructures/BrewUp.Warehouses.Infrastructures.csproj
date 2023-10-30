@@ -20,4 +20,9 @@
       <ProjectReference Include="..\BrewUp.Warehouses.ReadModel\BrewUp.Warehouses.ReadModel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="RabbitMq\Commands\" />
+      <Folder Include="RabbitMq\Events\" />
+    </ItemGroup>
+
 </Project>

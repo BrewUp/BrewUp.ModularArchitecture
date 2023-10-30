@@ -14,4 +14,9 @@
       <ProjectReference Include="..\..\BrewUp.Shared\BrewUp.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DomainIds\" />
+      <Folder Include="Dtos\" />
+    </ItemGroup>
+
 </Project>

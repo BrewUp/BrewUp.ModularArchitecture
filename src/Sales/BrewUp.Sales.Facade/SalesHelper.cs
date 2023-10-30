@@ -1,7 +1,10 @@
 ﻿using BrewUp.Infrastructures.RabbitMq;
 using BrewUp.Sales.Facade.Validators;
 using BrewUp.Sales.Infrastructures.RabbitMq;
+using BrewUp.Sales.ReadModel.Entities;
+using BrewUp.Sales.ReadModel.Queries;
 using BrewUp.Sales.ReadModel.Services;
+using BrewUp.Shared.ReadModel;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +21,7 @@ public static class SalesHelper
         
         services.AddScoped<ISalesFacade, SalesFacade>();
         services.AddScoped<ISalesOrderService, SalesOrderService>();
+        services.AddScoped<IQueries<SalesOrder>, SalesOrderQueries>();
 
         return services;
     }
