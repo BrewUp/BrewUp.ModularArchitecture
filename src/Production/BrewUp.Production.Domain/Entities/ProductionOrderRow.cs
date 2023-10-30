@@ -6,9 +6,9 @@ namespace BrewUp.Production.Domain.Entities;
 
 public sealed class ProductionOrderRow : Entity
 {
-    private readonly BeerId _beerId;
-    private readonly BeerName _beerName;
-    private readonly Quantity _quantity;
+    internal readonly BeerId _beerId;
+    internal readonly BeerName _beerName;
+    internal readonly Quantity _quantity;
     
     protected ProductionOrderRow()
     {}

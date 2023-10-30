@@ -19,6 +19,11 @@ public class ProductionModule : IModule
     {
         var group = endpoints.MapGroup("/v1/production/")
             .WithTags("Production");
+ 
+        group.MapPut("/complete", ProductionEndpoints.HandleCompleteOrder)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status204NoContent)
+            .WithName("CompleteProductionOrder");
         
         group.MapGet("/", ProductionEndpoints.HandleGetProductionOrders)
             .Produces(StatusCodes.Status400BadRequest)

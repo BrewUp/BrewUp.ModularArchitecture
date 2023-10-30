@@ -14,6 +14,8 @@ public class ProductionOrder : EntityBase
     
     public IEnumerable<ProductionOrderRow> Rows { get; private set; } = Enumerable.Empty<ProductionOrderRow>();
     
+    public string Status { get; private set; } = string.Empty;
+    
     protected ProductionOrder()
     {}
     
@@ -27,6 +29,13 @@ public class ProductionOrder : EntityBase
         ProductionOrderNumber = productionOrderNumber;
         OrderDate = orderData;
         Rows = rows;
+
+        Status = Shared.Dtos.Status.Created.Name;
+    }
+    
+    internal void Complete()
+    {
+        Status = Shared.Dtos.Status.Completed.Name;
     }
 
     public ProductionOrderJson ToJson() => new(new Guid(Id), ProductionOrderNumber, OrderDate, Rows.Select(r =>

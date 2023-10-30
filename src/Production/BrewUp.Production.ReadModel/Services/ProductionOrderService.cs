@@ -12,7 +12,10 @@ namespace BrewUp.Production.ReadModel.Services;
 public sealed class ProductionOrderService : ServiceBase, IProductionOrderService
 {
     private readonly IQueries<ProductionOrder> _queries;
-    public ProductionOrderService(ILoggerFactory loggerFactory, IPersister persister, IQueries<ProductionOrder> queries) : base(loggerFactory, persister)
+    
+    public ProductionOrderService(ILoggerFactory loggerFactory,
+        IPersister persister,
+        IQueries<ProductionOrder> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
     }
@@ -30,6 +33,14 @@ public sealed class ProductionOrderService : ServiceBase, IProductionOrderServic
             Logger.LogError(ex, "Error creating production order");
             throw;
         }
+    }
+
+    public async Task CompleteProductionOrderAsync(ProductionOrderId productionOrderId,
+        CancellationToken cancellationToken = new ())
+    {
+        var productionOrder = await _queries.GetByIdAsync(productionOrderId.Value.ToString(), cancellationToken);
+        productionOrder.Complete();
+        await Persister.UpdateAsync(productionOrder, cancellationToken);
     }
 
     public async Task<PagedResult<ProductionOrderJson>> GetProductionOrdersAsync(CancellationToken cancellationToken = new CancellationToken())

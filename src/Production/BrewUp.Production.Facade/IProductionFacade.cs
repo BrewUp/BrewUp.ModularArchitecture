@@ -6,4 +6,5 @@ namespace BrewUp.Production.Facade;
 public interface IProductionFacade
 {
     Task<PagedResult<ProductionOrderJson>> GetProductionOrdersAsync(CancellationToken cancellationToken);
+    Task CompleteProductionOrderAsync(Guid productionOrderId, CancellationToken cancellationToken);
 }

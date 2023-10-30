@@ -14,9 +14,12 @@ public sealed class ProductionOrder : AggregateRoot
 
     private IEnumerable<ProductionOrderRow> _rows;
     
+    private Status _status = Status.Created;
+    
     protected ProductionOrder()
     {}
     
+    #region CreateProductionOrder
     internal static ProductionOrder CreateProductionOrder(ProductionOrderId productionOrderId, ProductionOrderNumber productionOrderNumber,
         OrderDate orderDate, IEnumerable<Production.SharedKernel.Dtos.ProductionOrderRow> rows)
     {
@@ -37,5 +40,33 @@ public sealed class ProductionOrder : AggregateRoot
         _orderDate = @event.OrderDate;
         
         _rows = @event.Rows.ToDomainEntities();
+        
+        _status = Status.Created;
     }
+    #endregion
+
+    #region CompleteProductionOrder
+
+    internal void CompleteProductionOrder(ProductionOrderId productionOrderId)
+    {
+        if (!_status.Equals(Status.Created))
+        {
+            RaiseEvent(new ProductionOrderAlreadyCompleted(productionOrderId));
+            return;
+        }
+        
+        var rows = _rows.ToList();
+        RaiseEvent(new ProductionOrderCompleted(productionOrderId, _rows.ToDtos()));
+    }
+    
+    private void Apply(ProductionOrderCompleted @event)
+    {
+        _status = Status.Completed;
+    }
+    
+    private void Apply(ProductionOrderAlreadyCompleted @event)
+    {
+        // do nothing!;
+    }
+    #endregion
 }
