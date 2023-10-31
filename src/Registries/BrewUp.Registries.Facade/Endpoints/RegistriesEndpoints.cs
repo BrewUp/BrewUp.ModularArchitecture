@@ -1,15 +1,15 @@
-﻿using BrewUp.MasterData.Facade.BindingModels;
-using BrewUp.MasterData.Facade.Validators;
+﻿using BrewUp.Registries.Facade.BindingModels;
+using BrewUp.Registries.Facade.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace BrewUp.MasterData.Facade.Endpoints;
+namespace BrewUp.Registries.Facade.Endpoints;
 
-public static class MasterDataEndpoints
+public static class RegistriesEndpoints
 {
     #region Pubs
     public static async Task<IResult> HandleCreatePub(
-        IMasterDataFacade masterDataFacade,
+        IRegistriesFacade registriesFacade,
         IValidator<PubModel> validator,
         ValidationHandler validationHandler,
         PubModel body,
@@ -19,16 +19,16 @@ public static class MasterDataEndpoints
         if (!validationHandler.IsValid)
             return Results.BadRequest(validationHandler.Errors);
 
-        var pubId = await masterDataFacade.CreatePubsAsync(body, cancellationToken);
+        var pubId = await registriesFacade.CreatePubsAsync(body, cancellationToken);
 
-        return Results.Created($"/v1/masterdata/pubs/{pubId}", pubId);
+        return Results.Created($"/v1/registries/pubs/{pubId}", pubId);
     }
     
     public static async Task<IResult> HandleGetPubs(
-        IMasterDataFacade masterDataFacade,
+        IRegistriesFacade registriesFacade,
         CancellationToken cancellationToken)
     {
-        var pubs = await masterDataFacade.GetPubsAsync(cancellationToken);
+        var pubs = await registriesFacade.GetPubsAsync(cancellationToken);
 
         return Results.Ok(pubs.Results);
     }
@@ -36,7 +36,7 @@ public static class MasterDataEndpoints
 
     #region Beers
     public static async Task<IResult> HandleCreateBeer(
-        IMasterDataFacade masterDataFacade,
+        IRegistriesFacade registriesFacade,
         IValidator<BeerModel> validator,
         ValidationHandler validationHandler,
         BeerModel body,
@@ -46,16 +46,16 @@ public static class MasterDataEndpoints
         if (!validationHandler.IsValid)
             return Results.BadRequest(validationHandler.Errors);
 
-        var beerId = await masterDataFacade.CreateBeerAsync(body, cancellationToken);
+        var beerId = await registriesFacade.CreateBeerAsync(body, cancellationToken);
 
-        return Results.Created($"/v1/masterdata/beers/{beerId}", beerId);
+        return Results.Created($"/v1/registries/beers/{beerId}", beerId);
     }
     
     public static async Task<IResult> HandleGetBeers(
-        IMasterDataFacade masterDataFacade,
+        IRegistriesFacade registriesFacade,
         CancellationToken cancellationToken)
     {
-        var beers = await masterDataFacade.GetBeersAsync(cancellationToken);
+        var beers = await registriesFacade.GetBeersAsync(cancellationToken);
 
         return Results.Ok(beers.Results);
     }

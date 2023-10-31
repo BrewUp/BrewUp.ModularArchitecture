@@ -1,10 +1,10 @@
-﻿using BrewUp.MasterData.Facade.BindingModels;
+﻿using BrewUp.Registries.Facade.BindingModels;
 using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Entities;
 
-namespace BrewUp.MasterData.Facade;
+namespace BrewUp.Registries.Facade;
 
-public interface IMasterDataFacade
+public interface IRegistriesFacade
 {
     Task<string> CreatePubsAsync(PubModel body, CancellationToken cancellationToken);
     Task<PagedResult<PubJson>> GetPubsAsync(CancellationToken cancellationToken);

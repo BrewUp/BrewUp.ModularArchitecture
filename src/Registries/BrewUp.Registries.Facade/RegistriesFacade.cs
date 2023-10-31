@@ -1,18 +1,18 @@
-﻿using BrewUp.MasterData.Facade.BindingModels;
-using BrewUp.MasterData.ReadModel.Services;
+﻿using BrewUp.MasterData.ReadModel.Services;
+using BrewUp.Registries.Facade.BindingModels;
 using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using BrewUp.Shared.Entities;
 
-namespace BrewUp.MasterData.Facade;
+namespace BrewUp.Registries.Facade;
 
-public sealed class MasterDataFacade : IMasterDataFacade
+public sealed class RegistriesFacade : IRegistriesFacade
 {
     private readonly IPubService _pubService;
     private readonly IBeerService _beerService;
 
-    public MasterDataFacade(IPubService pubService, IBeerService beerService)
+    public RegistriesFacade(IPubService pubService, IBeerService beerService)
     {
         _pubService = pubService;
         _beerService = beerService;

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BrewUp.MasterData.Facade.Validators;
+namespace BrewUp.Registries.Facade.Validators;
 
 public class ValidationHandler
 {
