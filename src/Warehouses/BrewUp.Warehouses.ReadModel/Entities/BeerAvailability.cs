@@ -16,6 +16,11 @@ public class BeerAvailability : EntityBase
 
     public static BeerAvailability CreateBeerAvailability(BeerId beerId, BeerName beerName) => new(beerId.ToString(), beerName.Value);
     
+    public void LoadBeerAvailability(Availability availability)
+    {
+        Availability = availability;
+    }
+    
     private BeerAvailability(string beerId, string beerName)
     {
         Id = beerId;

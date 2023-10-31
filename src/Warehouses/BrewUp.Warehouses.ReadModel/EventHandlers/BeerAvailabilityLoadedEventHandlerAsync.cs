@@ -14,8 +14,8 @@ public sealed class BeerAvailabilityLoadedEventHandlerAsync : DomainEventHandler
         _beerAvailabilityService = beerAvailabilityService;
     }
 
-    public override Task HandleAsync(BeerAvailabilityLoaded @event, CancellationToken cancellationToken = new ())
+    public override async Task HandleAsync(BeerAvailabilityLoaded @event, CancellationToken cancellationToken = new ())
     {
-        throw new NotImplementedException();
+        await _beerAvailabilityService.LoadBeerAvailabilityAsync(@event.BeerId, @event.Availability, cancellationToken);
     }
 }
