@@ -20,6 +20,6 @@ public static class ProductionEndpoints
     {
         var orders = await productionFacade.GetProductionOrdersAsync(cancellationToken);
 
-        return Results.Ok(orders);
+        return Results.Ok(orders.Results);
     }
 }

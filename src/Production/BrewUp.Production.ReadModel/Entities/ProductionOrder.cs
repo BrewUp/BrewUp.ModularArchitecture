@@ -38,7 +38,7 @@ public class ProductionOrder : EntityBase
         Status = Shared.Dtos.Status.Completed.Name;
     }
 
-    public ProductionOrderJson ToJson() => new(new Guid(Id), ProductionOrderNumber, OrderDate, Rows.Select(r =>
+    public ProductionOrderJson ToJson() => new(new Guid(Id), ProductionOrderNumber, OrderDate, Status, Rows.Select(r =>
         new ProductionOrderRowJson
         {
             BeerId = r.BeerId.Value,
