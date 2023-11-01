@@ -6,10 +6,10 @@ namespace BrewUp.Sales.Domain.Entities;
 
 public class SalesOrderLine : Entity
 {
-    private readonly BeerId _beerId;
-    private readonly BeerName _beerName;
-    private readonly Quantity _quantity;
-    private readonly Price _price;
+    internal readonly BeerId _beerId;
+    internal readonly BeerName _beerName;
+    internal readonly Quantity _quantity;
+    internal readonly Price _price;
 
     protected SalesOrderLine()
     {

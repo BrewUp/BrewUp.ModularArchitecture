@@ -3,7 +3,7 @@ using BrewUp.Shared.Messages;
 using BrewUp.Warehouses.Messages.Commands;
 using BrewUp.Warehouses.ReadModel.Services;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic.CompilerServices;
+using Muflone;
 using Muflone.Messages.Events;
 using Muflone.Persistence;
 
@@ -12,13 +12,15 @@ namespace BrewUp.Warehouses.ReadModel.Adapters;
 public sealed class BeersBrewedEventHandler : IntegrationEventHandlerAsync<BeersBrewed>
 {
     private readonly IServiceBus _serviceBus;
+    private readonly IEventBus _eventBus;
     private readonly IBeerAvailabilityService _beerAvailabilityService;
 
     public BeersBrewedEventHandler(ILoggerFactory loggerFactory, IServiceBus serviceBus,
-        IBeerAvailabilityService beerAvailabilityService) : base(loggerFactory)
+        IEventBus eventBus, IBeerAvailabilityService beerAvailabilityService) : base(loggerFactory)
     {
-        _serviceBus = serviceBus;
-        _beerAvailabilityService = beerAvailabilityService;
+        _serviceBus = serviceBus ?? throw new ArgumentNullException(nameof(serviceBus));
+        _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+        _beerAvailabilityService = beerAvailabilityService?? throw new ArgumentNullException(nameof(beerAvailabilityService));
     }
 
     /// <summary>
@@ -49,5 +51,8 @@ public sealed class BeersBrewedEventHandler : IntegrationEventHandlerAsync<Beers
                 new Availability((double)row.Quantity.Value, row.Quantity.UnitOfMeasure));
             await _serviceBus.SendAsync(loadBeerAvailability, cancellationToken);
         }
+        
+        BeersForSalesOrderAvailable beersAvailable = new(@event.OrderId, @event.Rows);
+        await _eventBus.PublishAsync(beersAvailable, cancellationToken);
     }
 }
