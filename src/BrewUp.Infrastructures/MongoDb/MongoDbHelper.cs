@@ -12,13 +12,15 @@ public static class MongoDbHelper
 	public static IServiceCollection AddMongoDb(this IServiceCollection services,
 		MongoDbSettings mongoDbSettings)
 	{
-		services.AddSingleton<IMongoDatabase>(x =>
-		{
-			var client = new MongoClient(mongoDbSettings.ConnectionString);
-			var database = client.GetDatabase(mongoDbSettings.DatabaseName);
-			return database;
-		});
-		services.AddScoped<IPersister, Persister>();
+		services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.ConnectionString));
+		
+		// services.AddSingleton<IMongoDatabase>(x =>
+		// {
+		// 	var client = new MongoClient(mongoDbSettings.ConnectionString);
+		// 	var database = client.GetDatabase(mongoDbSettings.DatabaseName);
+		// 	return database;
+		// });
+		services.AddScoped<IPersister, CustomPersister>();
 
 		services.AddSingleton<IEventStorePositionRepository>(x =>
 			new EventStorePositionRepository(x.GetRequiredService<ILogger<EventStorePositionRepository>>(), mongoDbSettings));

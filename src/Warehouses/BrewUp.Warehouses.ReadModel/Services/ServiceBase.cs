@@ -11,6 +11,7 @@ public abstract class ServiceBase
     protected ServiceBase(ILoggerFactory loggerFactory, IPersister persister)
     {
 	    Persister = persister;
+	    Persister.SetDatabaseName("BrewUp_Warehouses");
 	    Logger = loggerFactory.CreateLogger(GetType());
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BrewUp.Shared.ReadModel;
 using Microsoft.Extensions.Logging;
 
-namespace BrewUp.Sales.ReadModel.Services;
+namespace BrewUp.Registries.ReadModel.Services;
 
 public abstract class ServiceBase
 {
@@ -11,7 +11,7 @@ public abstract class ServiceBase
     protected ServiceBase(ILoggerFactory loggerFactory, IPersister persister)
     {
         Persister = persister;
-        Persister.SetDatabaseName("BrewUp_Sales");
+        Persister.SetDatabaseName("BrewUp_Registries");
         Logger = loggerFactory.CreateLogger(GetType());
     }
 }

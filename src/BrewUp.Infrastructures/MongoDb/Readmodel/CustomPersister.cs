@@ -5,16 +5,16 @@ using MongoDB.Driver;
 
 namespace BrewUp.Infrastructures.MongoDb.Readmodel;
 
-public class Persister : IPersister
+public class CustomPersister : IPersister
 {
 	private readonly IMongoDatabase _database;
 	private readonly ILogger _logger;
 	
-	public string DatabaseName { get; private set; }
+	public string DatabaseName { get; private set;  }
 
-	public Persister(IMongoDatabase database, ILoggerFactory loggerFactory)
+	public CustomPersister(IMongoClient mongoClient, ILoggerFactory loggerFactory)
 	{
-		_database = database;
+		_database = mongoClient.GetDatabase(DatabaseName);
 		_logger = loggerFactory.CreateLogger(GetType());
 	}
 	

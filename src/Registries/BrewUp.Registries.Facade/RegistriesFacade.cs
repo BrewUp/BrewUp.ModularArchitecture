@@ -1,5 +1,5 @@
-﻿using BrewUp.MasterData.ReadModel.Services;
-using BrewUp.Registries.Facade.BindingModels;
+﻿using BrewUp.Registries.Facade.BindingModels;
+using BrewUp.Registries.ReadModel.Services;
 using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;

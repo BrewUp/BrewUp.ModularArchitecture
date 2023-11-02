@@ -13,6 +13,7 @@ namespace BrewUp.Sales.ReadModel.Services;
 public sealed class SalesOrderService : ServiceBase, ISalesOrderService
 {
     private readonly IQueries<SalesOrder> _queries;
+    
     public SalesOrderService(ILoggerFactory loggerFactory, IPersister persister, IQueries<SalesOrder> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
