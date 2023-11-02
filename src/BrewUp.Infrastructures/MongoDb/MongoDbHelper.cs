@@ -13,13 +13,6 @@ public static class MongoDbHelper
 		MongoDbSettings mongoDbSettings)
 	{
 		services.AddSingleton(mongoDbSettings);
-		
-		// services.AddSingleton<IMongoDatabase>(x =>
-		// {
-		// 	var client = new MongoClient(mongoDbSettings.ConnectionString);
-		// 	var database = client.GetDatabase(mongoDbSettings.DatabaseName);
-		// 	return database;
-		// });
 		services.AddScoped<IPersister, CustomPersister>();
 
 		services.AddSingleton<IEventStorePositionRepository>(x =>
