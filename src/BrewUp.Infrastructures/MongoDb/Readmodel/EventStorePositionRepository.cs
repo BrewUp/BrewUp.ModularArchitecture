@@ -15,8 +15,7 @@ public class EventStorePositionRepository : IEventStorePositionRepository
 	{
 		_logger = logger;
 		var client = new MongoClient(mongoDbSettings.ConnectionString);
-		_database = client.GetDatabase(
-			mongoDbSettings.DatabaseName);
+		_database = client.GetDatabase(mongoDbSettings.DatabaseName);
 	}
 
 	public async Task<IEventStorePosition> GetLastPosition()

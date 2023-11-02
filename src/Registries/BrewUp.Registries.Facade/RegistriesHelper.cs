@@ -1,7 +1,7 @@
-﻿using BrewUp.MasterData.ReadModel.Entities;
-using BrewUp.MasterData.ReadModel.Queries;
-using BrewUp.MasterData.ReadModel.Services;
-using BrewUp.Registries.Facade.Validators;
+﻿using BrewUp.Registries.Facade.Validators;
+using BrewUp.Registries.ReadModel.Entities;
+using BrewUp.Registries.ReadModel.Queries;
+using BrewUp.Registries.ReadModel.Services;
 using BrewUp.Shared.ReadModel;
 using FluentValidation;
 using FluentValidation.AspNetCore;

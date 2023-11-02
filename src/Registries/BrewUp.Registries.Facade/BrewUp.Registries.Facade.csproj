@@ -17,10 +17,4 @@
         <ProjectReference Include="..\BrewUp.Registries.ReadModel\BrewUp.Registries.ReadModel.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="BrewUp.MasterData.ReadModel">
-        <HintPath>..\..\BrewUp.Rest\bin\Debug\net7.0\BrewUp.MasterData.ReadModel.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
 </Project>

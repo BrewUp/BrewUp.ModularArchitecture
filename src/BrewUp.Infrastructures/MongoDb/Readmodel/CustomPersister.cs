@@ -7,20 +7,23 @@ namespace BrewUp.Infrastructures.MongoDb.Readmodel;
 
 public class CustomPersister : IPersister
 {
-	private readonly IMongoDatabase _database;
+	private IMongoDatabase _database;
 	private readonly ILogger _logger;
+	private readonly MongoDbSettings _mongoDbSettings;
 	
 	public string DatabaseName { get; private set;  }
 
-	public CustomPersister(IMongoClient mongoClient, ILoggerFactory loggerFactory)
+	public CustomPersister(MongoDbSettings mongoDbSettings, ILoggerFactory loggerFactory)
 	{
-		_database = mongoClient.GetDatabase(DatabaseName);
+		_mongoDbSettings = mongoDbSettings;
 		_logger = loggerFactory.CreateLogger(GetType());
 	}
 	
 	public  void SetDatabaseName(string databaseName)
 	{
 		DatabaseName = databaseName;
+		var mongoClient = new MongoClient(_mongoDbSettings.ConnectionString);
+		_database = mongoClient.GetDatabase(DatabaseName);
 	}
 
 	public async Task<T> GetByIdAsync<T>(string id, CancellationToken cancellationToken) where T : EntityBase
