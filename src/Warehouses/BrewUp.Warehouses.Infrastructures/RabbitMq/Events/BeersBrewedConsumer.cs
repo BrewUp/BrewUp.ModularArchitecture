@@ -2,6 +2,7 @@
 using BrewUp.Warehouses.ReadModel.Adapters;
 using BrewUp.Warehouses.ReadModel.Services;
 using Microsoft.Extensions.Logging;
+using Muflone;
 using Muflone.Messages.Events;
 using Muflone.Persistence;
 using Muflone.Transport.RabbitMQ.Abstracts;
@@ -14,12 +15,12 @@ public sealed class BeersBrewedConsumer : IntegrationEventsConsumerBase<BeersBre
     protected override IEnumerable<IIntegrationEventHandlerAsync<BeersBrewed>> HandlersAsync { get; }
 
     public BeersBrewedConsumer(IBeerAvailabilityService beerAvailabilityService, IServiceBus serviceBus,
-        IMufloneConnectionFactory mufloneConnectionFactory, ILoggerFactory loggerFactory) 
+        IEventBus eventBus, IMufloneConnectionFactory mufloneConnectionFactory, ILoggerFactory loggerFactory) 
         : base(mufloneConnectionFactory, loggerFactory)
     {
         HandlersAsync = new List<IIntegrationEventHandlerAsync<BeersBrewed>>
         {
-            new BeersBrewedEventHandler(loggerFactory, serviceBus, beerAvailabilityService)
+            new BeersBrewedEventHandler(loggerFactory, serviceBus, eventBus, beerAvailabilityService)
         };        
     }
 }

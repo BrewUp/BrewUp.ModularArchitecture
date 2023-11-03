@@ -13,6 +13,7 @@ namespace BrewUp.Sales.ReadModel.Services;
 public sealed class SalesOrderService : ServiceBase, ISalesOrderService
 {
     private readonly IQueries<SalesOrder> _queries;
+    
     public SalesOrderService(ILoggerFactory loggerFactory, IPersister persister, IQueries<SalesOrder> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
@@ -37,15 +38,30 @@ public sealed class SalesOrderService : ServiceBase, ISalesOrderService
     {
         try
         {
-            var beersResult = await _queries.GetByFilterAsync(null, page, pageSize, cancellationToken);
+            var salesOrders = await _queries.GetByFilterAsync(null, page, pageSize, cancellationToken);
             
-            return beersResult.TotalRecords > 0
-                ? new PagedResult<SalesOrderJson>(beersResult.Results.Select(r => r.ToJson()), beersResult.Page, beersResult.PageSize, beersResult.TotalRecords)
+            return salesOrders.TotalRecords > 0
+                ? new PagedResult<SalesOrderJson>(salesOrders.Results.Select(r => r.ToJson()), salesOrders.Page, salesOrders.PageSize, salesOrders.TotalRecords)
                 : new PagedResult<SalesOrderJson>(Enumerable.Empty<SalesOrderJson>(), 0, 0, 0);
         }
         catch (Exception ex)
         {
             Logger.LogError(ex, "Error reading SalesOrders");
+            throw;
+        }
+    }
+
+    public async Task CompleteSalesOrderAsync(SalesOrderId eventSalesOrderId, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var salesOrder = await Persister.GetByIdAsync<SalesOrder>(eventSalesOrderId.Value.ToString(), cancellationToken);
+            salesOrder.CompleteOrder();
+            await Persister.UpdateAsync(salesOrder, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error completing SalesOrders");
             throw;
         }
     }

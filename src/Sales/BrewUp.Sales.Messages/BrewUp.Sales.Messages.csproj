@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Muflone" Version="6.2.0" />
+    <PackageReference Include="Muflone.Transport.RabbitMQ" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>

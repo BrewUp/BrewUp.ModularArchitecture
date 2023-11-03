@@ -9,11 +9,18 @@ public class Persister : IPersister
 {
 	private readonly IMongoDatabase _database;
 	private readonly ILogger _logger;
+	
+	public string DatabaseName { get; private set; }
 
 	public Persister(IMongoDatabase database, ILoggerFactory loggerFactory)
 	{
 		_database = database;
 		_logger = loggerFactory.CreateLogger(GetType());
+	}
+	
+	public  void SetDatabaseName(string databaseName)
+	{
+		DatabaseName = databaseName;
 	}
 
 	public async Task<T> GetByIdAsync<T>(string id, CancellationToken cancellationToken) where T : EntityBase

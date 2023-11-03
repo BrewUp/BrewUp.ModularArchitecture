@@ -19,6 +19,8 @@ public class SalesOrder : EntityBase
     
     public IEnumerable<SalesOrderRow> Rows { get; private set; } = Enumerable.Empty<SalesOrderRow>();
     
+    public string Status { get; private set; } = string.Empty;
+    
     protected SalesOrder()
     {}
 
@@ -34,7 +36,11 @@ public class SalesOrder : EntityBase
         PubName = pubName;
         OrderDate = orderDate;
         Rows = rows;
+
+        Status = Shared.Dtos.Status.Created.Name;
     }
+    
+    public void CompleteOrder() => Status = Shared.Dtos.Status.Completed.Name;
     
     public SalesOrderJson ToJson() => new(Guid.Parse(Id), OrderNumber, Guid.Parse(PubId), PubName, OrderDate, Rows.Select(r => r.ToJson));
 }
