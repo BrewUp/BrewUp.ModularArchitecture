@@ -15,7 +15,10 @@ services:
 
   eventstore.db:
     container_name: "eventstore-brewup"
-    image: eventstore/eventstore:latest
+    build:
+      dockerfile: ${DOCKERFILE}
+
+
     environment:
       - EVENTSTORE_CLUSTER_SIZE=1
       - EVENTSTORE_RUN_PROJECTIONS=All

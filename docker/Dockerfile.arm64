@@ -1,0 +1,1 @@
+FROM eventstore/eventstore:22.10.2-alpha-arm64v8
