@@ -9,21 +9,21 @@ public class CustomPersister : IPersister
 {
 	private IMongoDatabase _database;
 	private readonly ILogger _logger;
-	private readonly MongoDbSettings _mongoDbSettings;
+	private readonly IMongoClient _mongoClient;
 	
 	public string DatabaseName { get; private set;  }
 
-	public CustomPersister(MongoDbSettings mongoDbSettings, ILoggerFactory loggerFactory)
+	public CustomPersister(IMongoClient mongloClient,
+		ILoggerFactory loggerFactory)
 	{
-		_mongoDbSettings = mongoDbSettings;
+		_mongoClient = mongloClient;
 		_logger = loggerFactory.CreateLogger(GetType());
 	}
 	
 	public  void SetDatabaseName(string databaseName)
 	{
 		DatabaseName = databaseName;
-		var mongoClient = new MongoClient(_mongoDbSettings.ConnectionString);
-		_database = mongoClient.GetDatabase(DatabaseName);
+		_database = _mongoClient.GetDatabase(DatabaseName);
 	}
 
 	public async Task<T> GetByIdAsync<T>(string id, CancellationToken cancellationToken) where T : EntityBase
