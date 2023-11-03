@@ -13,10 +13,10 @@ public class CustomPersister : IPersister
 	
 	public string DatabaseName { get; private set;  }
 
-	public CustomPersister(IMongoClient mongloClient,
+	public CustomPersister(IMongoClient mongoClient,
 		ILoggerFactory loggerFactory)
 	{
-		_mongoClient = mongloClient;
+		_mongoClient = mongoClient;
 		_logger = loggerFactory.CreateLogger(GetType());
 	}
 	
