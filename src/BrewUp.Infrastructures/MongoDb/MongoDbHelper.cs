@@ -12,7 +12,6 @@ public static class MongoDbHelper
 	public static IServiceCollection AddMongoDb(this IServiceCollection services,
 		MongoDbSettings mongoDbSettings)
 	{
-		services.AddSingleton(mongoDbSettings);
 		services.AddSingleton<IMongoClient>(new MongoClient(mongoDbSettings.ConnectionString));
 		services.AddScoped<IPersister, CustomPersister>();
 
