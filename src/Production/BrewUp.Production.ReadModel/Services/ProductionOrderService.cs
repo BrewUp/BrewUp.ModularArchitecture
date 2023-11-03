@@ -18,6 +18,7 @@ public sealed class ProductionOrderService : ServiceBase, IProductionOrderServic
         IQueries<ProductionOrder> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
+        _queries.SetDatabaseName("BrewUp_Production");
     }
 
     public async Task CreateProductionOrderAsync(ProductionOrderId productionOrderId, ProductionOrderNumber productionOrderNumber,

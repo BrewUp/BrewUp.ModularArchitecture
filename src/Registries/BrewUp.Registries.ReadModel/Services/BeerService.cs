@@ -16,13 +16,15 @@ public sealed class BeerService : ServiceBase, IBeerService
     public BeerService(ILoggerFactory loggerFactory, IPersister persister, IQueries<Beer> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
+        _queries.SetDatabaseName("BrewUp_Registries");
     }
 
-    public async Task<string> CreateBeerAsync(BeerId beerId, BeerName beerName, BeerType beerType, CancellationToken cancellationToken)
+    public async Task<string> CreateBeerAsync(BeerId beerId, BeerName beerName, BeerType beerType,
+        HomeBrewed homeBrewed, CancellationToken cancellationToken)
     {
         try
         {
-            var beer = Beer.CreateBeer(beerId, beerName, beerType);
+            var beer = Beer.CreateBeer(beerId, beerName, beerType, homeBrewed);
             await Persister.InsertAsync(beer, cancellationToken);
 
             return beerId.Value.ToString();

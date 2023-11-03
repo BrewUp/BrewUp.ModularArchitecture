@@ -9,13 +9,22 @@ namespace BrewUp.Registries.ReadModel.Queries;
 
 public sealed class BeerQueries : IQueries<Beer>
 {
-    private readonly IMongoDatabase _database;
-
-    public BeerQueries(IMongoDatabase database)
-    {
-        _database = database;
-    }
+    private readonly IMongoClient _mongoClient;
+    private IMongoDatabase _database;
     
+    public string DatabaseName { get; private set; }
+
+    public BeerQueries(IMongoClient mongoClient)
+    {
+        _mongoClient = mongoClient;
+    }
+
+    public void SetDatabaseName(string databaseName)
+    {
+        DatabaseName = databaseName;
+        _database = _mongoClient.GetDatabase(databaseName);
+    }
+
     public async Task<Beer> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var collection = _database.GetCollection<Beer>(nameof(Beer));

@@ -8,11 +8,20 @@ namespace BrewUp.Infrastructures.MongoDb.Readmodel;
 
 public abstract class Queries<T> : IQueries<T> where T : EntityBase
 {
-	protected readonly IMongoDatabase Database;
+	protected readonly IMongoClient MongoClient;
+	protected IMongoDatabase Database;
 
-	protected Queries(IMongoDatabase database)
+	protected Queries(IMongoClient mongoClient)
 	{
-		Database = database;
+		MongoClient = mongoClient;
+	}
+
+	public string DatabaseName { get; private set; }
+
+	public void SetDatabaseName(string databaseName)
+	{
+		DatabaseName = databaseName;
+		Database = MongoClient.GetDatabase(databaseName);
 	}
 
 	public async Task<T> GetByIdAsync(string id, CancellationToken cancellationToken)

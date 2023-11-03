@@ -17,6 +17,7 @@ public sealed class SalesOrderService : ServiceBase, ISalesOrderService
     public SalesOrderService(ILoggerFactory loggerFactory, IPersister persister, IQueries<SalesOrder> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
+        _queries.SetDatabaseName("BrewUp_Sales");
     }
 
     public async Task CreateSalesOrderAsync(SalesOrderId salesOrderId, SalesOrderNumber salesOrderNumber, PubId pubId,

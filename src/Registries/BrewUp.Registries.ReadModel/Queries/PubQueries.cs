@@ -9,11 +9,20 @@ namespace BrewUp.Registries.ReadModel.Queries;
 
 public sealed class PubQueries : IQueries<Pub>
 {
-    private readonly IMongoDatabase _database;
+    private readonly IMongoClient _mongoClient;
+    private IMongoDatabase _database;
+    
+    public string DatabaseName { get; private set; }
 
-    public PubQueries(IMongoDatabase database)
+    public PubQueries(IMongoClient mongoClient)
     {
-        _database = database;
+        _mongoClient = mongoClient;
+    }
+    
+    public void SetDatabaseName(string databaseName)
+    {
+        DatabaseName = databaseName;
+        _database = _mongoClient.GetDatabase(databaseName);
     }
     
     public async Task<Pub> GetByIdAsync(string id, CancellationToken cancellationToken)

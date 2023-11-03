@@ -9,11 +9,20 @@ namespace BrewUp.Production.ReadModel.Queries;
 
 public sealed class ProductionOrderQueries : IQueries<ProductionOrder>
 {
-    private readonly IMongoDatabase _database;
+    private readonly IMongoClient _mongoClient;
+    private IMongoDatabase _database;
+    
+    public string DatabaseName { get; private set; }
 
-    public ProductionOrderQueries(IMongoDatabase database)
+    public ProductionOrderQueries(IMongoClient mongoClient)
     {
-        _database = database;
+        _mongoClient = mongoClient;
+    }
+    
+    public void SetDatabaseName(string databaseName)
+    {
+        DatabaseName = databaseName;
+        _database = _mongoClient.GetDatabase(databaseName);
     }
     
     public async Task<ProductionOrder> GetByIdAsync(string id, CancellationToken cancellationToken)

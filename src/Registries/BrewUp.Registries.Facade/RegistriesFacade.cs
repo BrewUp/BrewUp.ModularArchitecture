@@ -39,7 +39,7 @@ public sealed class RegistriesFacade : IRegistriesFacade
             body = body with {BeerId = Guid.NewGuid()};
 
         await _beerService.CreateBeerAsync(new BeerId(body.BeerId), new BeerName(body.BeerName),
-            new BeerType(body.BeerType), cancellationToken);
+            new BeerType(body.BeerType), new HomeBrewed(body.homeBrewed), cancellationToken);
 
         return body.BeerId.ToString();
     }

@@ -9,11 +9,20 @@ namespace BrewUp.Sales.ReadModel.Queries;
 
 public sealed class SalesOrderQueries : IQueries<SalesOrder>
 {
-    private readonly IMongoDatabase _database;
+    private readonly IMongoClient _mongoClient;
+    private IMongoDatabase _database;
+    
+    public string DatabaseName { get; private set; }
 
-    public SalesOrderQueries(IMongoDatabase database)
+    public SalesOrderQueries(IMongoClient mongoClient)
     {
-        _database = database;
+        _mongoClient = mongoClient;
+    }
+    
+    public void SetDatabaseName(string databaseName)
+    {
+        DatabaseName = databaseName;
+        _database = _mongoClient.GetDatabase(databaseName);
     }
     
     public async Task<SalesOrder> GetByIdAsync(string id, CancellationToken cancellationToken)

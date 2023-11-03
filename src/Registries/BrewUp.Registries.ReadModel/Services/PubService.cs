@@ -16,6 +16,7 @@ public sealed class PubService : ServiceBase, IPubService
     public PubService(ILoggerFactory loggerFactory, IPersister persister, IQueries<Pub> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
+        _queries.SetDatabaseName("BrewUp_Registries");
     }
 
     public async Task<string> CreatePubAsync(PubId pubId, PubName pubName, CancellationToken cancellationToken)

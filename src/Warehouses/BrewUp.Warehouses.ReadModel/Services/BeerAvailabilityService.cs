@@ -15,6 +15,7 @@ public sealed class BeerAvailabilityService : ServiceBase, IBeerAvailabilityServ
     public BeerAvailabilityService(ILoggerFactory loggerFactory, IPersister persister, IQueries<BeerAvailability> queries) : base(loggerFactory, persister)
     {
         _queries = queries;
+        _queries.SetDatabaseName("BrewUp_Warehouses");
     }
 
     public async Task CreateBeerAvailabilityAsync(BeerId beerId, BeerName beerName, CancellationToken cancellationToken = default)
