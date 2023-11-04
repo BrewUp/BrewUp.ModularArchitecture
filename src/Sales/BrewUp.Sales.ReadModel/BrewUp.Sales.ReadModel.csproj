@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BrewUp.Sales.Messages\BrewUp.Sales.Messages.csproj" />
+    <ProjectReference Include="..\BrewUp.Sales.SharedKernel\BrewUp.Sales.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

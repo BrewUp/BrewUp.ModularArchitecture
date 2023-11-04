@@ -1,6 +1,4 @@
-﻿using BrewUp.Production.Messages.Commands;
-using BrewUp.Production.ReadModel.Services;
-using BrewUp.Production.SharedKernel.DomainIds;
+﻿using BrewUp.Production.ReadModel.Services;
 using BrewUp.Shared.Contracts;
 using BrewUp.Shared.Entities;
 using Muflone.Persistence;
@@ -22,12 +20,5 @@ public sealed class ProductionFacade : IProductionFacade
     public async Task<PagedResult<ProductionOrderJson>> GetProductionOrdersAsync(CancellationToken cancellationToken)
     {
         return await _productionOrderService.GetProductionOrdersAsync(cancellationToken);
-    }
-
-    public async Task CompleteProductionOrderAsync(Guid productionOrderId, CancellationToken cancellationToken)
-    {
-        // Check Order exists
-        CompleteProductionOrder completeProductionOrder = new(new ProductionOrderId(productionOrderId));
-        await _serviceBus.SendAsync(completeProductionOrder, cancellationToken);
     }
 }

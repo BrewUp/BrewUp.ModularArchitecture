@@ -1,6 +1,4 @@
-﻿using BrewUp.Infrastructures.RabbitMq;
-using BrewUp.Production.Infrastructures.RabbitMq;
-using BrewUp.Production.ReadModel.Entities;
+﻿using BrewUp.Production.ReadModel.Entities;
 using BrewUp.Production.ReadModel.Queries;
 using BrewUp.Production.ReadModel.Services;
 using BrewUp.Shared.ReadModel;
@@ -21,14 +19,6 @@ public static class ProductionHelper
         services.AddScoped<IProductionOrderService, ProductionOrderService>();
         services.AddScoped<IQueries<ProductionOrder>, ProductionOrderQueries>();
 
-        return services;
-    }
-    
-    public static IServiceCollection AddProductionInfrastructure(this IServiceCollection services,
-        RabbitMqSettings rabbitMqSettings)
-    {
-        services.AddRabbitMqForProductionModule(rabbitMqSettings);
-        
         return services;
     }
 }

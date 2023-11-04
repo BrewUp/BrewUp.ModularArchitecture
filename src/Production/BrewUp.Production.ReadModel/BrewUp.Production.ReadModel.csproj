@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\BrewUp.Shared\BrewUp.Shared.csproj" />
-      <ProjectReference Include="..\BrewUp.Production.Messages\BrewUp.Production.Messages.csproj" />
       <ProjectReference Include="..\BrewUp.Production.SharedKernel\BrewUp.Production.SharedKernel.csproj" />
     </ItemGroup>
 

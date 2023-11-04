@@ -4,14 +4,12 @@ namespace BrewUp.Production.Facade.Endpoints;
 
 public static class ProductionEndpoints
 {
-    public static async Task<IResult> HandleCompleteOrder(
+    public static Task<IResult> HandleCompleteOrder(
         Guid productionOrderId,
         IProductionFacade productionFacade,
         CancellationToken cancellationToken)
     {
-        await productionFacade.CompleteProductionOrderAsync(productionOrderId, cancellationToken);
-        
-        return Results.NoContent();
+        return Task.FromResult(Results.NoContent());
     }
     
     public static async Task<IResult> HandleGetProductionOrders(
