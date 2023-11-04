@@ -1,7 +1,5 @@
-﻿using BrewUp.Infrastructures.RabbitMq;
-using BrewUp.Shared.ReadModel;
+﻿using BrewUp.Shared.ReadModel;
 using BrewUp.Warehouses.Facade.Validators;
-using BrewUp.Warehouses.Infrastructures.RabbitMq;
 using BrewUp.Warehouses.ReadModel.Entities;
 using BrewUp.Warehouses.ReadModel.Queries;
 using BrewUp.Warehouses.ReadModel.Services;
@@ -23,14 +21,6 @@ public static class WarehousesHelper
         services.AddScoped<IBeerAvailabilityService, BeerAvailabilityService>();
         services.AddScoped<IQueries<BeerAvailability>, BeerAvailabilityQueries>();
 
-        return services;
-    }
-    
-    public static IServiceCollection AddWarehousesInfrastructure(this IServiceCollection services,
-        RabbitMqSettings rabbitMqSettings)
-    {
-        services.AddRabbitMqForWarehousesModule(rabbitMqSettings);
-        
         return services;
     }
 }
