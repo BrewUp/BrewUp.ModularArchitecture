@@ -1,6 +1,4 @@
-﻿using BrewUp.Infrastructures.RabbitMq;
-using BrewUp.Sales.Facade.Validators;
-using BrewUp.Sales.Infrastructures.RabbitMq;
+﻿using BrewUp.Sales.Facade.Validators;
 using BrewUp.Sales.ReadModel.Entities;
 using BrewUp.Sales.ReadModel.Queries;
 using BrewUp.Sales.ReadModel.Services;
@@ -23,14 +21,6 @@ public static class SalesHelper
         services.AddScoped<ISalesOrderService, SalesOrderService>();
         services.AddScoped<IQueries<SalesOrder>, SalesOrderQueries>();
 
-        return services;
-    }
-    
-    public static IServiceCollection AddSalesInfrastructure(this IServiceCollection services,
-        RabbitMqSettings rabbitMqSettings)
-    {
-        services.AddRabbitMqForSalesModule(rabbitMqSettings);
-        
         return services;
     }
 }
