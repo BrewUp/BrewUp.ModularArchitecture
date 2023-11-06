@@ -1,10 +1,10 @@
 ﻿using BrewUp.Production.Domain.CommandHandlers;
 using BrewUp.Production.Messages.Commands;
 using BrewUp.Production.Messages.Events;
-using BrewUp.Production.SharedKernel.DomainIds;
-using BrewUp.Production.SharedKernel.Dtos;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
+using BrewUp.Shared.Messages.Sagas;
 using Microsoft.Extensions.Logging.Abstractions;
 using Muflone.Messages.Commands;
 using Muflone.Messages.Events;
@@ -17,6 +17,8 @@ public sealed class CreateProductionOrderSuccessfully : CommandSpecification<Cre
     private readonly ProductionOrderId _productionOrderId = new(Guid.NewGuid());
     private readonly ProductionOrderNumber _productionOrderNumber = new("20231108-01");
     private readonly OrderDate _orderDate = new(DateTime.UtcNow);
+    
+    private readonly Guid _correlationId = Guid.NewGuid();
 
     private readonly IEnumerable<ProductionOrderRow> _rows = Enumerable.Empty<ProductionOrderRow>();
 
@@ -35,7 +37,7 @@ public sealed class CreateProductionOrderSuccessfully : CommandSpecification<Cre
 
     protected override CreateProductionOrder When()
     {
-        return new CreateProductionOrder(_productionOrderId, _productionOrderNumber, _orderDate, _rows);
+        return new CreateProductionOrder(_productionOrderId, _correlationId, _productionOrderNumber, _orderDate, _rows);
     }
 
     protected override ICommandHandlerAsync<CreateProductionOrder> OnHandler()
@@ -45,6 +47,6 @@ public sealed class CreateProductionOrderSuccessfully : CommandSpecification<Cre
 
     protected override IEnumerable<DomainEvent> Expect()
     {
-        yield return new ProductionOrderCreated(_productionOrderId, _productionOrderNumber, _orderDate, _rows);
+        yield return new ProductionOrderCreated(_productionOrderId, _correlationId, _productionOrderNumber, _orderDate, _rows);
     }
 }

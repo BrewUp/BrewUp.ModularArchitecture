@@ -1,6 +1,6 @@
 ﻿using Muflone.Core;
 
-namespace BrewUp.Production.SharedKernel.DomainIds;
+namespace BrewUp.Shared.DomainIds;
 
 public sealed class ProductionOrderId : DomainId
 {

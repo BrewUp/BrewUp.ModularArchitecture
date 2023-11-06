@@ -1,4 +1,4 @@
-﻿using BrewUp.Production.SharedKernel.DomainIds;
+﻿using BrewUp.Shared.DomainIds;
 using Muflone.Messages.Events;
 
 namespace BrewUp.Production.Messages.Events;

@@ -1,8 +1,7 @@
 ﻿using BrewUp.Production.Domain.CommandHandlers;
 using BrewUp.Production.Messages.Commands;
 using BrewUp.Production.Messages.Events;
-using BrewUp.Production.SharedKernel.DomainIds;
-using BrewUp.Production.SharedKernel.Dtos;
+using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -17,6 +16,8 @@ public sealed class CompleteProductionOrderWithError : CommandSpecification<Comp
     private readonly ProductionOrderId _productionOrderId = new(Guid.NewGuid());
     private readonly ProductionOrderNumber _productionOrderNumber = new("20231108-01");
     private readonly OrderDate _orderDate = new(DateTime.UtcNow);
+    
+    private readonly Guid _correlationId = Guid.NewGuid();
 
     private readonly IEnumerable<ProductionOrderRow> _rows = Enumerable.Empty<ProductionOrderRow>();
 
@@ -30,13 +31,13 @@ public sealed class CompleteProductionOrderWithError : CommandSpecification<Comp
     
     protected override IEnumerable<DomainEvent> Given()
     {
-        yield return new ProductionOrderCreated(_productionOrderId, _productionOrderNumber, _orderDate, _rows);
+        yield return new ProductionOrderCreated(_productionOrderId, _correlationId, _productionOrderNumber, _orderDate, _rows);
         yield return new ProductionOrderCompleted(_productionOrderId, _rows);
     }
 
     protected override CompleteProductionOrder When()
     {
-        return new CompleteProductionOrder(_productionOrderId);
+        return new CompleteProductionOrder(_productionOrderId, _correlationId);
     }
 
     protected override ICommandHandlerAsync<CompleteProductionOrder> OnHandler()

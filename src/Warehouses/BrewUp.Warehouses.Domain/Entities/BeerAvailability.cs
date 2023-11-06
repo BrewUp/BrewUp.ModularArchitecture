@@ -1,5 +1,6 @@
 ﻿using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
+using BrewUp.Shared.Messages.Sagas;
 using BrewUp.Warehouses.Messages.Events;
 using Muflone.Core;
 
@@ -44,6 +45,18 @@ public sealed class BeerAvailability : AggregateRoot
     private void Apply(BeerAvailabilityLoaded @event)
     {
         _availability = @event.Availability with {Value = _availability.Value + @event.Availability.Value};
+    }
+    #endregion
+
+    #region ChkAvailability
+    internal void ChkAvailability(Guid correlationId)
+    {
+        RaiseEvent(new BeerAvailabilityChecked(new BeerId(Id.Value), correlationId, _availability));
+    }
+    
+    private void Apply(BeerAvailabilityChecked @event)
+    {
+        // do nothing;
     }
     #endregion
 }

@@ -1,3 +1,3 @@
-﻿namespace BrewUp.Production.SharedKernel.Dtos;
+﻿namespace BrewUp.Shared.Dtos;
 
 public record ProductionOrderNumber(string Value);

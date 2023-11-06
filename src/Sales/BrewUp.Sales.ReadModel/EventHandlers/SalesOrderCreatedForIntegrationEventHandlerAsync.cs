@@ -1,9 +1,8 @@
 ﻿using BrewUp.Sales.Messages.Events;
-using BrewUp.Sales.ReadModel.Services;
 using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
-using BrewUp.Shared.Messages;
+using BrewUp.Shared.Messages.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone;
 
@@ -21,10 +20,9 @@ public sealed class SalesOrderCreatedForIntegrationEventHandlerAsync : DomainEve
 
     public override async Task HandleAsync(SalesOrderCreated @event, CancellationToken cancellationToken = new ())
     {
-        BeersForSaleCommitted beersForSaleCommitted = new(new OrderId(@event.SalesOrderId.Value),
-            new OrderNumber(@event.SalesOrderNumber.Value),
+        BeersForSaleRequested beersForSaleRequested = new(new OrderId(@event.SalesOrderId.Value),
+            Guid.NewGuid(), 
             @event.Rows.Select(x => new BeerCommittedRow(x.BeerId.Value, x.BeerName.Value, x.Quantity)));
-
-        await _eventBus.PublishAsync(beersForSaleCommitted, cancellationToken);
+        await _eventBus.PublishAsync(beersForSaleRequested, cancellationToken);
     }
 }

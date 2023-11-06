@@ -2,6 +2,8 @@
 using BrewUp.Infrastructures.MongoDb;
 using BrewUp.Infrastructures.RabbitMq;
 using BrewUp.Production.Facade;
+using BrewUp.Purchases.Infrastructures.RabbitMq;
+using BrewUp.Sagas.Infrastructures.RabbitMq;
 using BrewUp.Sales.Facade;
 using BrewUp.Warehouses.Facade;
 
@@ -16,13 +18,15 @@ public sealed class InfrastructureModule : IModule
     {
         builder.Services.AddInfrastructure(builder.Configuration.GetSection("BrewUp:MongoDb").Get<MongoDbSettings>()!,
             builder.Configuration.GetSection("BrewUp:EventStore").Get<EventStoreSettings>()!);
-        
-        builder.Services.AddSalesInfrastructure(builder.Configuration.GetSection("BrewUp:RabbitMQ")
-            .Get<RabbitMqSettings>()!);
-        builder.Services.AddWarehousesInfrastructure(builder.Configuration.GetSection("BrewUp:RabbitMQ")
-            .Get<RabbitMqSettings>()!);
-        builder.Services.AddProductionInfrastructure(builder.Configuration.GetSection("BrewUp:RabbitMQ")
-            .Get<RabbitMqSettings>()!);
+
+        var rabbitMqSettings = builder.Configuration.GetSection("BrewUp:RabbitMQ")
+            .Get<RabbitMqSettings>()!;
+
+        builder.Services.AddSalesInfrastructure(rabbitMqSettings);
+        builder.Services.AddWarehousesInfrastructure(rabbitMqSettings);
+        builder.Services.AddProductionInfrastructure(rabbitMqSettings);
+        builder.Services.AddRabbitMqForPurchasesModule(rabbitMqSettings);
+        builder.Services.AddRabbitMqForSagasModule(rabbitMqSettings);
         
         return builder.Services;
     }

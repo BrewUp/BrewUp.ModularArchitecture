@@ -1,5 +1,3 @@
-﻿using BrewUp.Shared.Dtos;
-
-namespace BrewUp.Shared.Contracts;
+﻿namespace BrewUp.Shared.Dtos;
 
 public record BeerCommittedRow(Guid BeerId, string BeerName, Quantity Quantity);

@@ -1,5 +1,6 @@
 ﻿using BrewUp.Production.Domain.Entities;
 using BrewUp.Production.Messages.Commands;
+using BrewUp.Shared.Messages.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 
@@ -15,7 +16,7 @@ public sealed class CreateProductionOrderCommandHandler : CommandHandlerBaseAsyn
     public override async Task ProcessCommand(CreateProductionOrder command, CancellationToken cancellationToken = default)
     {
         var aggregate = ProductionOrder.CreateProductionOrder(command.ProductionOrderId, command.ProductionOrderNumber,
-            command.OrderDate, command.Rows);
+            command.OrderDate, command.Rows, command.MessageId);
         await Repository.SaveAsync(aggregate, Guid.NewGuid());
     }
 }

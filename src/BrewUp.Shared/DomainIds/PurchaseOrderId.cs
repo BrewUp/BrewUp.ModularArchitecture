@@ -1,6 +1,6 @@
 ﻿using Muflone.Core;
 
-namespace BrewUp.Purchases.SharedKernel.DomainIds;
+namespace BrewUp.Shared.DomainIds;
 
 public class PurchaseOrderId : DomainId
 {

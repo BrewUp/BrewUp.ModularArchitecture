@@ -1,7 +1,6 @@
 ﻿using BrewUp.Production.Domain.Helpers;
 using BrewUp.Production.Messages.Events;
-using BrewUp.Production.SharedKernel.DomainIds;
-using BrewUp.Production.SharedKernel.Dtos;
+using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using Muflone.Core;
 
@@ -21,15 +20,15 @@ public sealed class ProductionOrder : AggregateRoot
     
     #region CreateProductionOrder
     internal static ProductionOrder CreateProductionOrder(ProductionOrderId productionOrderId, ProductionOrderNumber productionOrderNumber,
-        OrderDate orderDate, IEnumerable<Production.SharedKernel.Dtos.ProductionOrderRow> rows)
+        OrderDate orderDate, IEnumerable<Shared.Dtos.ProductionOrderRow> rows, Guid correlationId)
     {
-        return new ProductionOrder(productionOrderId, productionOrderNumber, orderDate, rows);
+        return new ProductionOrder(productionOrderId, productionOrderNumber, orderDate, rows, correlationId);
     }
     
     private ProductionOrder(ProductionOrderId productionOrderId, ProductionOrderNumber productionOrderNumber,
-        OrderDate orderDate, IEnumerable<Production.SharedKernel.Dtos.ProductionOrderRow> rows)
+        OrderDate orderDate, IEnumerable<Shared.Dtos.ProductionOrderRow> rows, Guid correlationId)
     {
-        RaiseEvent(new ProductionOrderCreated(productionOrderId, productionOrderNumber, orderDate, rows));
+        RaiseEvent(new ProductionOrderCreated(productionOrderId, correlationId, productionOrderNumber, orderDate, rows));
     }
 
     private void Apply(ProductionOrderCreated @event)
@@ -55,7 +54,6 @@ public sealed class ProductionOrder : AggregateRoot
             return;
         }
         
-        var rows = _rows.ToList();
         RaiseEvent(new ProductionOrderCompleted(productionOrderId, _rows.ToDtos()));
     }
     
