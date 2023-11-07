@@ -10,22 +10,22 @@ using Muflone.Persistence;
 
 namespace BrewUp.Production.ReadModel.Adapters;
 
-public sealed class BeersForSaleCommittedEventHandler : IntegrationEventHandlerAsync<BeersForSaleCommitted>
+public sealed class BeersForSaleCommitted_V2EventHandler : IntegrationEventHandlerAsync<BeersForSaleCommitted_V2>
 {
 	private readonly IServiceBus _serviceBus;
 
-	public BeersForSaleCommittedEventHandler(ILoggerFactory loggerFactory,
+	public BeersForSaleCommitted_V2EventHandler(ILoggerFactory loggerFactory,
 		IServiceBus serviceBus) : base(loggerFactory)
 	{
 		_serviceBus = serviceBus;
 	}
 
-	public override async Task HandleAsync(BeersForSaleCommitted @event, CancellationToken cancellationToken = new())
+	public override async Task HandleAsync(BeersForSaleCommitted_V2 @event, CancellationToken cancellationToken = new())
 	{
 		CreateProductionOrder createProductionOrder = new(new ProductionOrderId(@event.OrderId.Value),
 			new ProductionOrderNumber(@event.OrderNumber.Value),
 			new OrderDate(DateTime.UtcNow),
-			string.Empty,
+			@event.CustomerNotes,
 			@event.Rows.Select(x =>
 				new ProductionOrderRow(new BeerId(x.BeerId), new BeerName(x.BeerName), x.Quantity)));
 

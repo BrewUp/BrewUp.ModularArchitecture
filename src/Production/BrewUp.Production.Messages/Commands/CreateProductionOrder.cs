@@ -9,19 +9,19 @@ public sealed class CreateProductionOrder : Command
 {
     public readonly ProductionOrderId ProductionOrderId;
     public readonly ProductionOrderNumber ProductionOrderNumber;
-    
     public readonly OrderDate OrderDate;
-    
     public readonly IEnumerable<ProductionOrderRow> Rows;
+    
+    //The new request wants the field Customer Notes
+    public readonly string CustomerNotes;
 
     public CreateProductionOrder(ProductionOrderId aggregateId, ProductionOrderNumber productionOrderNumber,
-        OrderDate orderDate, IEnumerable<ProductionOrderRow> rows) : base(aggregateId)
+        OrderDate orderDate, string customerNotes, IEnumerable<ProductionOrderRow> rows) : base(aggregateId)
     {
         ProductionOrderId = aggregateId;
         ProductionOrderNumber = productionOrderNumber;
-
         OrderDate = orderDate;
-        
         Rows = rows;
+        CustomerNotes = customerNotes;
     }
 }

@@ -12,15 +12,16 @@ using Muflone.SpecificationTests;
 
 namespace BrewUp.Production.Domain.Tests.Entities;
 
-public sealed class CreateProductionOrderSuccessfully : CommandSpecification<CreateProductionOrder>
+public sealed class CreateProductionOrderSuccessfully_V2 : CommandSpecification<CreateProductionOrder>
 {
 	private readonly ProductionOrderId _productionOrderId = new(Guid.NewGuid());
 	private readonly ProductionOrderNumber _productionOrderNumber = new("20231108-01");
 	private readonly OrderDate _orderDate = new(DateTime.UtcNow);
+	private readonly string _customerNotes = "Customer notes";
 
 	private readonly IEnumerable<ProductionOrderRow> _rows = Enumerable.Empty<ProductionOrderRow>();
 
-	public CreateProductionOrderSuccessfully()
+	public CreateProductionOrderSuccessfully_V2()
 	{
 		_rows = _rows.Concat(new List<ProductionOrderRow>
 		{
@@ -35,7 +36,7 @@ public sealed class CreateProductionOrderSuccessfully : CommandSpecification<Cre
 
 	protected override CreateProductionOrder When()
 	{
-		return new CreateProductionOrder(_productionOrderId, _productionOrderNumber, _orderDate, string.Empty, _rows);
+		return new CreateProductionOrder(_productionOrderId, _productionOrderNumber, _orderDate, _customerNotes, _rows);
 	}
 
 	protected override ICommandHandlerAsync<CreateProductionOrder> OnHandler()
@@ -45,6 +46,7 @@ public sealed class CreateProductionOrderSuccessfully : CommandSpecification<Cre
 
 	protected override IEnumerable<DomainEvent> Expect()
 	{
-		yield return new ProductionOrderCreated(_productionOrderId, _productionOrderNumber, _orderDate, _rows);
+		yield return new ProductionOrderCreated_V2(_productionOrderId, _productionOrderNumber, _orderDate, _customerNotes,
+			_rows);
 	}
 }
