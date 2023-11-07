@@ -1,5 +1,7 @@
 ﻿using BrewUp.Infrastructures.RabbitMq;
 using BrewUp.Purchases.Infrastructures.RabbitMq.Commands;
+using BrewUp.Purchases.Infrastructures.RabbitMq.Events;
+using BrewUp.Purchases.ReadModel.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
@@ -29,7 +31,8 @@ public static class RabbitMqHelper
         var consumers = serviceProvider.GetRequiredService<IEnumerable<IConsumer>>();
         consumers = consumers.Concat(new List<IConsumer>
         {
-            new CreatePurchaseOrderConsumer(repository, mufloneConnectionFactory, loggerFactory)
+            new CreatePurchaseOrderConsumer(repository, mufloneConnectionFactory, loggerFactory),
+            new PurchaseOrderCreatedConsumer(serviceProvider.GetRequiredService<IPurchaseOrderService>(), mufloneConnectionFactory, loggerFactory)
         });
         services.AddMufloneRabbitMQConsumers(consumers);
 

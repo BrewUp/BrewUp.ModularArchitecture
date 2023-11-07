@@ -1,7 +1,7 @@
 ﻿using BrewUp.Infrastructures.RabbitMq;
-using BrewUp.Warehouses.Infrastructures.RabbitMq.Commands;
-using BrewUp.Warehouses.Infrastructures.RabbitMq.Events;
-using BrewUp.Warehouses.ReadModel.Services;
+using BrewUp.Registries.Infrastructures.RabbitMq.Commands;
+using BrewUp.Registries.ReadModel.Entities;
+using BrewUp.Shared.ReadModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Muflone;
@@ -11,11 +11,11 @@ using Muflone.Transport.RabbitMQ.Abstracts;
 using Muflone.Transport.RabbitMQ.Factories;
 using Muflone.Transport.RabbitMQ.Models;
 
-namespace BrewUp.Warehouses.Infrastructures.RabbitMq;
+namespace BrewUp.Registries.Infrastructures.RabbitMq;
 
 public static class RabbitMqHelper
 {
-	public static IServiceCollection AddRabbitMqForWarehousesModule(this IServiceCollection services,
+	public static IServiceCollection AddRabbitMqForRegistriesModule(this IServiceCollection services,
 		RabbitMqSettings rabbitMqSettings)
 	{
 		var serviceProvider = services.BuildServiceProvider();
@@ -24,7 +24,7 @@ public static class RabbitMqHelper
 
 		var rabbitMqConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username,
 			rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
-		var connectionFactory = new MufloneConnectionFactory(rabbitMqConfiguration, loggerFactory);
+		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMqConfiguration, loggerFactory);
 
 		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMqConfiguration);
 
@@ -32,20 +32,9 @@ public static class RabbitMqHelper
 		var consumers = serviceProvider.GetRequiredService<IEnumerable<IConsumer>>();
 		consumers = consumers.Concat(new List<IConsumer>
 		{
-			new BeersBrewedConsumer(serviceProvider.GetRequiredService<IBeerAvailabilityService>(),
-				serviceProvider.GetRequiredService<IServiceBus>(),
+			new AskForBeerOriginConsumer(serviceProvider.GetRequiredService<IQueries<Beer>>(),
 				serviceProvider.GetRequiredService<IEventBus>(),
-				connectionFactory, loggerFactory),
-			
-			new CreateBeerAvailabilityConsumer(repository, connectionFactory, loggerFactory),
-			new BeerAvailabilityCreatedConsumer(serviceProvider.GetRequiredService<IBeerAvailabilityService>(),
-				connectionFactory, loggerFactory),
-			
-			new LoadBeerAvailabilityConsumer(repository, connectionFactory, loggerFactory),
-			new BeerAvailabilityLoadedConsumer(serviceProvider.GetRequiredService<IBeerAvailabilityService>(),
-				connectionFactory, loggerFactory),
-			
-			new AskForBeerAvailabilityConsumer(repository, connectionFactory, loggerFactory)
+				repository, mufloneConnectionFactory, loggerFactory)
 		});
 		services.AddMufloneRabbitMQConsumers(consumers);
 

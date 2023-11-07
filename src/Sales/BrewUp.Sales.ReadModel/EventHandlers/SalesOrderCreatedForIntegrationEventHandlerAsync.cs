@@ -1,5 +1,4 @@
 ﻿using BrewUp.Sales.Messages.Events;
-using BrewUp.Shared.Contracts;
 using BrewUp.Shared.DomainIds;
 using BrewUp.Shared.Dtos;
 using BrewUp.Shared.Messages.Sagas;

@@ -1,4 +1,5 @@
-﻿using BrewUp.Shared.Messages.Sagas;
+﻿using Brewup.Purchases.Domain.Entities;
+using BrewUp.Shared.Messages.Sagas;
 using Microsoft.Extensions.Logging;
 using Muflone.Persistence;
 
@@ -10,8 +11,9 @@ public class CreatePurchaseOrderCommandHandlerAsync : CommandHandlerBaseAsync<Cr
     {
     }
 
-    public override Task ProcessCommand(CreatePurchaseOrder command, CancellationToken cancellationToken = default)
+    public override async Task ProcessCommand(CreatePurchaseOrder command, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var aggregate = PurchaseOrder.Create(command.PurchaseOrderId, command.MessageId, command.SupplierId, command.OrderDate, command.Rows);
+        await Repository.SaveAsync(aggregate, Guid.NewGuid());
     }
 }

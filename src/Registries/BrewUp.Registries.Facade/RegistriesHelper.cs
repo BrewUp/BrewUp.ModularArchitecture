@@ -1,4 +1,6 @@
-﻿using BrewUp.Registries.Facade.Validators;
+﻿using BrewUp.Infrastructures.RabbitMq;
+using BrewUp.Registries.Facade.Validators;
+using BrewUp.Registries.Infrastructures.RabbitMq;
 using BrewUp.Registries.ReadModel.Entities;
 using BrewUp.Registries.ReadModel.Queries;
 using BrewUp.Registries.ReadModel.Services;
@@ -23,6 +25,14 @@ public static class RegistriesHelper
         services.AddScoped<IBeerService, BeerService>();
         services.AddScoped<IQueries<Beer>, BeerQueries>();
 
+        return services;
+    }
+
+    public static IServiceCollection AddRegistriesInfrastructure(this IServiceCollection services,
+        RabbitMqSettings rabbitMqSettings)
+    {
+        services.AddRabbitMqForRegistriesModule(rabbitMqSettings);
+        
         return services;
     }
 }

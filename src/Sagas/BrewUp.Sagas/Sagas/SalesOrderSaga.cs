@@ -128,6 +128,7 @@ public sealed class SalesOrderSaga : Saga<SalesOrderSaga.SalesOrderSagaState>,
                 correlationId,
                 new PurchaseOrderNumber(
                     $"{DateTime.UtcNow.Year:0000}{DateTime.UtcNow.Month:00}{DateTime.UtcNow.Day:00}-{DateTime.UtcNow.Hour:00}{DateTime.UtcNow.Minute:00}"),
+                new SupplierId(Guid.NewGuid()),
                 new OrderDate(DateTime.UtcNow), purchaseRowsArray);
             await ServiceBus.SendAsync(createPurchaseOrder, CancellationToken.None);
         }

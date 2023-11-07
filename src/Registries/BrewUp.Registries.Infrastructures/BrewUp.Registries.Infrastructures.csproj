@@ -15,8 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\BrewUp.Infrastructures\BrewUp.Infrastructures.csproj" />
-      <ProjectReference Include="..\BrewUp.Purchases.Domain\BrewUp.Purchases.Domain.csproj" />
-      <ProjectReference Include="..\BrewUp.Purchases.ReadModel\BrewUp.Purchases.ReadModel.csproj" />
+      <ProjectReference Include="..\BrewUp.Registries.Domain\BrewUp.Registries.Domain.csproj" />
     </ItemGroup>
 
 </Project>

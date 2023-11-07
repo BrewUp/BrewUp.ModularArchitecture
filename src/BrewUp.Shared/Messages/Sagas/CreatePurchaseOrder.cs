@@ -10,15 +10,18 @@ public sealed class CreatePurchaseOrder : Command
     public readonly PurchaseOrderId PurchaseOrderId;
     public readonly PurchaseOrderNumber PurchaseOrderNumber;
     
+    public readonly SupplierId SupplierId;
     public readonly OrderDate OrderDate;
     
     public readonly IEnumerable<PurchaseOrderRow> Rows;
     
     public CreatePurchaseOrder(PurchaseOrderId aggregateId, Guid commitId, PurchaseOrderNumber purchaseOrderNumber,
-        OrderDate orderDate, IEnumerable<PurchaseOrderRow> rows) : base(aggregateId, commitId)
+        SupplierId supplierId, OrderDate orderDate, IEnumerable<PurchaseOrderRow> rows) : base(aggregateId, commitId)
     {
         PurchaseOrderId = aggregateId;
         PurchaseOrderNumber = purchaseOrderNumber;
+
+        SupplierId = supplierId;
         OrderDate = orderDate;
         
         Rows = rows;
