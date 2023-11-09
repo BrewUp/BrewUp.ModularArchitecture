@@ -24,7 +24,7 @@ public static class RabbitMqHelper
 
 		var rabbitMqConfiguration = new RabbitMQConfiguration(rabbitMqSettings.Host, rabbitMqSettings.Username,
 			rabbitMqSettings.Password, rabbitMqSettings.ExchangeCommandName, rabbitMqSettings.ExchangeEventName);
-		var connectionFactory = new MufloneConnectionFactory(rabbitMqConfiguration, loggerFactory);
+		var mufloneConnectionFactory = new MufloneConnectionFactory(rabbitMqConfiguration, loggerFactory);
 
 		services.AddMufloneTransportRabbitMQ(loggerFactory, rabbitMqConfiguration);
 
@@ -35,17 +35,19 @@ public static class RabbitMqHelper
 			new BeersBrewedConsumer(serviceProvider.GetRequiredService<IBeerAvailabilityService>(),
 				serviceProvider.GetRequiredService<IServiceBus>(),
 				serviceProvider.GetRequiredService<IEventBus>(),
-				connectionFactory, loggerFactory),
+				mufloneConnectionFactory, loggerFactory),
 			
-			new CreateBeerAvailabilityConsumer(repository, connectionFactory, loggerFactory),
+			new CreateBeerAvailabilityConsumer(repository, mufloneConnectionFactory, loggerFactory),
 			new BeerAvailabilityCreatedConsumer(serviceProvider.GetRequiredService<IBeerAvailabilityService>(),
-				connectionFactory, loggerFactory),
+				mufloneConnectionFactory, loggerFactory),
 			
-			new LoadBeerAvailabilityConsumer(repository, connectionFactory, loggerFactory),
+			new LoadBeerAvailabilityConsumer(repository, mufloneConnectionFactory, loggerFactory),
 			new BeerAvailabilityLoadedConsumer(serviceProvider.GetRequiredService<IBeerAvailabilityService>(),
-				connectionFactory, loggerFactory),
+				mufloneConnectionFactory, loggerFactory),
 			
-			new AskForBeerAvailabilityConsumer(repository, connectionFactory, loggerFactory)
+			new AskForBeerAvailabilityConsumer(repository, mufloneConnectionFactory, loggerFactory),
+			new BeerAvailabilityCheckedConsumer(serviceProvider.GetRequiredService<IEventBus>(),
+				mufloneConnectionFactory, loggerFactory)
 		});
 		services.AddMufloneRabbitMQConsumers(consumers);
 

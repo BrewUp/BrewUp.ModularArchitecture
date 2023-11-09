@@ -4,7 +4,7 @@ using Muflone.Messages.Events;
 
 namespace BrewUp.Shared.Messages.Sagas;
 
-public sealed class BeerOriginDiscovered : DomainEvent
+public sealed class BeerOriginDiscovered : IntegrationEvent
 {
     public readonly BeerId BeerId;
     public readonly HomeBrewed HomeBrewed; 

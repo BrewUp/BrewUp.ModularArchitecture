@@ -9,11 +9,11 @@ using Muflone.Transport.RabbitMQ.Saga.Consumers;
 
 namespace BrewUp.Sagas.Infrastructures.RabbitMq.Events;
 
-public sealed class BeersAvailabilityCheckedConsumer : SagaEventConsumerBase<BeerAvailabilityCommunicated>
+public sealed class BeersAvailabilityCommunicatedConsumer : SagaEventConsumerBase<BeerAvailabilityCommunicated>
 {
     protected override ISagaEventHandlerAsync<BeerAvailabilityCommunicated> HandlerAsync { get; }
 
-    public BeersAvailabilityCheckedConsumer(IServiceBus serviceBus, ISagaRepository sagaRepository,
+    public BeersAvailabilityCommunicatedConsumer(IServiceBus serviceBus, ISagaRepository sagaRepository,
         IRepository repository, IMufloneConnectionFactory mufloneConnectionFactory,
         ILoggerFactory loggerFactory) : base(mufloneConnectionFactory, loggerFactory)
     {
