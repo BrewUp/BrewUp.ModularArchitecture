@@ -9,9 +9,9 @@ using Muflone.Transport.RabbitMQ.Saga.Consumers;
 
 namespace BrewUp.Sagas.Infrastructures.RabbitMq.Events;
 
-public sealed class BeersAvailabilityCheckedConsumer : SagaEventConsumerBase<BeerAvailabilityChecked>
+public sealed class BeersAvailabilityCheckedConsumer : SagaEventConsumerBase<BeerAvailabilityCommunicated>
 {
-    protected override ISagaEventHandlerAsync<BeerAvailabilityChecked> HandlerAsync { get; }
+    protected override ISagaEventHandlerAsync<BeerAvailabilityCommunicated> HandlerAsync { get; }
 
     public BeersAvailabilityCheckedConsumer(IServiceBus serviceBus, ISagaRepository sagaRepository,
         IRepository repository, IMufloneConnectionFactory mufloneConnectionFactory,

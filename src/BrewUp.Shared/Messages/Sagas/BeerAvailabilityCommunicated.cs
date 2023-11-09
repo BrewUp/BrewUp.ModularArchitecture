@@ -4,12 +4,12 @@ using Muflone.Messages.Events;
 
 namespace BrewUp.Shared.Messages.Sagas;
 
-public sealed class BeerAvailabilityChecked : DomainEvent
+public sealed class BeerAvailabilityCommunicated : IntegrationEvent
 {
     public readonly BeerId BeerId;
     public readonly Availability Availability;
     
-    public BeerAvailabilityChecked(BeerId aggregateId, Guid correlationId, Availability availability) : base(aggregateId, correlationId)
+    public BeerAvailabilityCommunicated(BeerId aggregateId, Guid correlationId, Availability availability) : base(aggregateId, correlationId)
     {
         BeerId = aggregateId;
         Availability = availability;

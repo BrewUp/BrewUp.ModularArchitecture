@@ -1,4 +1,5 @@
-﻿using BrewUp.Sales.Domain.Helpers;
+﻿
+using BrewUp.Sales.Domain.Helpers;
 using BrewUp.Sales.Messages.Events;
 using BrewUp.Sales.SharedKernel.DomainIds;
 using BrewUp.Sales.SharedKernel.Dtos;

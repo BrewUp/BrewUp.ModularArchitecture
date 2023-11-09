@@ -11,7 +11,7 @@ namespace BrewUp.Sagas.Sagas;
 
 public sealed class SalesOrderSaga : Saga<SalesOrderSaga.SalesOrderSagaState>,
     ISagaStartedByAsync<StartSalesOrderSaga>,
-    ISagaEventHandlerAsync<BeerAvailabilityChecked>,
+    ISagaEventHandlerAsync<BeerAvailabilityCommunicated>,
     ISagaEventHandlerAsync<BeerOriginDiscovered>
 {
     public class SalesOrderSagaState
@@ -47,7 +47,7 @@ public sealed class SalesOrderSaga : Saga<SalesOrderSaga.SalesOrderSagaState>,
         }
     }
 
-    public async Task HandleAsync(BeerAvailabilityChecked @event)
+    public async Task HandleAsync(BeerAvailabilityCommunicated @event)
     {
         var correlationId =
             new Guid(@event.UserProperties.FirstOrDefault(u => u.Key.Equals("CorrelationId")).Value.ToString()!);
