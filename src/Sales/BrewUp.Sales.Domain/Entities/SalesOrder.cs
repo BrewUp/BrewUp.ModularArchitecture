@@ -57,7 +57,7 @@ public sealed class SalesOrder : AggregateRoot
 
     internal void Complete(SalesOrderId salesOrderId, IEnumerable<BrewedRow> rows)
     {
-        if (_status != Status.Created)
+        if (_status.Id != Status.Created.Id)
         {
             RaiseEvent(new SalesOrderAlreadyCompleted(Id));
             return;
