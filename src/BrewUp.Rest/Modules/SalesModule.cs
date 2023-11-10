@@ -17,19 +17,6 @@ public sealed class SalesModule : IModule
 
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints)
     {
-        var group = endpoints.MapGroup("/v1/sales/")
-            .WithTags("Sales");
-        
-        group.MapPost("/", SalesEndpoints.HandleCreateOrder)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status201Created)
-            .WithName("CreateSalesOrder");
-        
-        group.MapGet("/", SalesEndpoints.HandleGetOrders)
-            .Produces(StatusCodes.Status400BadRequest)
-            .Produces(StatusCodes.Status200OK)
-            .WithName("GetSalesOrders");
-        
-        return endpoints;
+        return endpoints.MapSalesEndpoints();
     }
 }
