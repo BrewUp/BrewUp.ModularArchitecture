@@ -9,7 +9,8 @@ namespace BrewUp.Sales.Facade.Endpoints;
 
 public static class SalesEndpoints
 {
-    public static IEndpointRouteBuilder MapSalesEndpoints(this IEndpointRouteBuilder endpoints) {
+    public static IEndpointRouteBuilder MapSalesEndpoints(this IEndpointRouteBuilder endpoints) 
+    {
         var group = endpoints.MapGroup("/v1/sales/")
             .WithTags("Sales");
 
